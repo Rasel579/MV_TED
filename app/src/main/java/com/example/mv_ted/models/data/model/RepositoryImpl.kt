@@ -3,11 +3,15 @@ package com.example.mv_ted.models.data.model
 import java.util.*
 
 open class RepositoryImpl() : Repository {
-    private lateinit var listMovies : List<Movie>;
-   override fun init() : List<Movie> {
-        listMovies =  listOf<Movie>(Movie("1 film", Calendar.DAY_OF_MONTH, 0), Movie("2 film", Calendar.DAY_OF_MONTH, 0))
+    private lateinit var listMovies: List<Movie>;
+    override fun init(): List<Movie> {
+        listMovies = listOf<Movie>(
+            Movie("1 film", Calendar.DAY_OF_MONTH, 0),
+            Movie("2 film", Calendar.DAY_OF_MONTH, 0)
+        )
         return listMovies
     }
+
     override fun getMovie(position: Int): Movie {
         return listMovies[position]
     }

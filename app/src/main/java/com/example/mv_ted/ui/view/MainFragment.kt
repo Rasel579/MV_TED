@@ -17,8 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
 
-    private var _binding : MainFragmentBinding? = null
-
+    private var _binding: MainFragmentBinding? = null
 
 
     companion object {
@@ -28,8 +27,10 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var listMovies: RepositoryImpl
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getData().observe(viewLifecycleOwner, Observer {
@@ -39,40 +40,43 @@ class MainFragment : Fragment() {
         return _binding!!.root
     }
 
-    override  fun onActivityCreated(savedInstanceState: Bundle?) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-       // listMovies = RepositoryImpl()
+        // listMovies = RepositoryImpl()
         // listMovies.init()
     }
 
     private fun renderData(appState: AppState) {
-       when(appState){
-           is AppState.Success -> {
-               listMovies = appState.movieData
-               listMovies.init()
-               _binding?.loadingLayout?.visibility = View.GONE
-               initListView(view)
-               Snackbar.make(_binding?.recycleViewLayout!!, "Success", Snackbar.LENGTH_LONG).show()
-           }
-           is AppState.Loading ->{
-               _binding?.loadingLayout?.visibility = View.VISIBLE
-           }
-           is AppState.Error -> {
-               _binding?.loadingLayout?.visibility = View.GONE
-               Snackbar.make(_binding?.recycleViewLayout!!, "Error", Snackbar.LENGTH_LONG).setAction("Reload"){
-                   viewModel.getMovieData()
-               }.show()
-           }
-       }
+        when (appState) {
+            is AppState.Success -> {
+                listMovies = appState.movieData
+                listMovies.init()
+                _binding?.loadingLayout?.visibility = View.GONE
+                initListView(view)
+                Snackbar.make(_binding?.recycleViewLayout!!, "Success", Snackbar.LENGTH_LONG).show()
+            }
+            is AppState.Loading -> {
+                _binding?.loadingLayout?.visibility = View.VISIBLE
+            }
+            is AppState.Error -> {
+                _binding?.loadingLayout?.visibility = View.GONE
+                Snackbar.make(_binding?.recycleViewLayout!!, "Error", Snackbar.LENGTH_LONG)
+                    .setAction("Reload") {
+                        viewModel.getMovieData()
+                    }.show()
+            }
+        }
     }
 
     private fun initListView(view: View?) {
-        val recyclerViewNow : RecyclerView = _binding?.recycleViewLayout!!
+        val recyclerViewNow: RecyclerView = _binding?.recycleViewLayout!!
         val movieCollectionAdapter = MovieCollectionAdapter(listMovies)
-        recyclerViewNow.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewNow.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewNow.adapter = movieCollectionAdapter
         val recyclerViewComingSoon: RecyclerView = _binding?.recycleViewLayoutComingSoon!!
-        recyclerViewComingSoon.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewComingSoon.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewComingSoon.adapter = movieCollectionAdapter
 
     }

@@ -12,7 +12,8 @@ import com.example.mv_ted.R
 import com.example.mv_ted.models.data.model.Movie
 import com.example.mv_ted.models.data.model.RepositoryImpl
 
-class MovieCollectionAdapter(private var listMovies: RepositoryImpl) : RecyclerView.Adapter<MovieCollectionAdapter.ViewHolder>() {
+class MovieCollectionAdapter(private var listMovies: RepositoryImpl) :
+    RecyclerView.Adapter<MovieCollectionAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(
@@ -21,12 +22,12 @@ class MovieCollectionAdapter(private var listMovies: RepositoryImpl) : RecyclerV
     ): MovieCollectionAdapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item, parent, false)
-            return ViewHolder(itemView)
+        return ViewHolder(itemView)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: MovieCollectionAdapter.ViewHolder, position: Int) {
-        listMovies =  RepositoryImpl()
+        listMovies = RepositoryImpl()
         listMovies.init()
         holder.setData(listMovies.getMovie(position))
     }
@@ -37,13 +38,15 @@ class MovieCollectionAdapter(private var listMovies: RepositoryImpl) : RecyclerV
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var titleTextMovie: TextView? = null
 
-        var imageViewMovie : AppCompatImageView? = null
-        var dateUpcomingMovie : TextView? = null
+        var imageViewMovie: AppCompatImageView? = null
+        var dateUpcomingMovie: TextView? = null
+
         init {
             titleTextMovie = itemView.findViewById(R.id.title_view)
             imageViewMovie = itemView.findViewById(R.id.ImageView)
             dateUpcomingMovie = itemView.findViewById(R.id.dateUpcoming)
         }
+
         @RequiresApi(Build.VERSION_CODES.M)
         fun setData(movie: Movie) {
             titleTextMovie?.text = movie.title
