@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MV_TED</string>
+    <string name="main_frame_item_menu">Main Frame</string>
+    <string name="favorite_movies_item_menu">Favorite Movies</string>
+    <string name="settings_item_menu">Settings</string>
+    <string name="search_movie_item_menu">Search Movie</string>
+    <string name="nav_header_movie_app">Movie App</string>
+    <string name="nav_header_more_information_text">More information...</string>
+    <string name="closer_drawer_conent_text">Close Drawer</string>
+    <string name="open_string_text_drawer">open</string>
+    <string name="now_playing_text_main_fragment">Now Playing</string>
+</resources>
