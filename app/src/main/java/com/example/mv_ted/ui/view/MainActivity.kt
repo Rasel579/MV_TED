@@ -21,11 +21,15 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_binding.root)
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.content_main, MainFragment.newInstance())
-                .commitNow()
+            navigationToMainFragment()
         }
         initView();
+    }
+
+    private fun navigationToMainFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.content_main_frame, MainFragment.newInstance())
+            .commitNow()
     }
 
     private fun initView() {
@@ -53,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.setting_item_menu -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
-                    Toast.makeText(this, "Drawer", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.NavigationFDawerText), Toast.LENGTH_SHORT).show()
                     return@setNavigationItemSelectedListener true
                 }
             }
@@ -63,21 +67,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-        val search = menu?.findItem(R.id.search_menu)
-        val searchView: SearchView = search?.actionView as SearchView
+        val searchMenu = menu?.findItem(R.id.search_menu)
+        val searchView: SearchView = searchMenu?.actionView as SearchView
         searchView.setOnQueryTextFocusChangeListener(object : SearchView.OnQueryTextListener,
             View.OnFocusChangeListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                Toast.makeText(baseContext, p0, Toast.LENGTH_SHORT).show()
+            override fun onQueryTextSubmit(searcingText: String?): Boolean {
+                Toast.makeText(baseContext, searcingText, Toast.LENGTH_SHORT).show()
                 return true
             }
 
-            override fun onQueryTextChange(p0: String?): Boolean {
-                Toast.makeText(baseContext, p0, Toast.LENGTH_SHORT).show()
+            override fun onQueryTextChange(searcingText: String?): Boolean {
+                Toast.makeText(baseContext, searcingText, Toast.LENGTH_SHORT).show()
                 return true
             }
 
-            override fun onFocusChange(p0: View?, p1: Boolean) {
+            override fun onFocusChange(searcingText: View?, onFocus: Boolean) {
             }
 
         })
@@ -87,7 +91,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.main_frame_menu -> {
-                Toast.makeText(baseContext, "Main Frame", Toast.LENGTH_SHORT).show()
+                navigationToMainFragment()
+                Toast.makeText(baseContext, getString(R.string.textOnOptionItemSelectedMainFrame), Toast.LENGTH_SHORT).show()
                 return true
             }
         }
