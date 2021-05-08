@@ -6,7 +6,7 @@ import com.example.mv_ted.models.data.model.RepositoryImpl
 import java.lang.Thread.sleep
 
 class MainViewModel(private val liveData: MutableLiveData<Any> = MutableLiveData(),
-                    private var repositoryImpl: RepositoryImpl = RepositoryImpl()
+                    private var repository: RepositoryImpl = RepositoryImpl()
 ) : ViewModel() {
     // TODO: Implement the ViewModel
     fun getData() = liveData
@@ -15,7 +15,7 @@ class MainViewModel(private val liveData: MutableLiveData<Any> = MutableLiveData
         liveData.value = AppState.Loading
         Thread{
             sleep(1000)
-            liveData.postValue(AppState.Success(repositoryImpl))
+            liveData.postValue(AppState.Success(repository.getDataFromLocalStorage()))
         }.start()
 
     }

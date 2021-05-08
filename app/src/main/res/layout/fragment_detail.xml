@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/frame_margin_top_detail_frg"
+    tools:context=".ui.view.DetailFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/movie_image"
+            android:layout_width="@dimen/width_img_detail_frg"
+            android:layout_height="@dimen/height_img_detail_frg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/movie_id_name"
+            app:layout_constraintBottom_toBottomOf="@id/movie_id_date"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintVertical_bias="0.2"
+            />
+        <TextView
+            android:id="@+id/movie_id_name"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/movie_image"
+            app:layout_constraintBottom_toBottomOf="@id/movie_id_date"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintVertical_bias="0.1"
+            android:textSize="@dimen/movie_title_text_size_detail_frg"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/movie_id_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/date_text_marginTop_detail_frg"
+            android:textSize="@dimen/date_text_size_detail_frgmnt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.8"
+            app:layout_constraintTop_toTopOf="@id/movie_image" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
