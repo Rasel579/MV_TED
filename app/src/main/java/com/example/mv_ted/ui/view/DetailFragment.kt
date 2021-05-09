@@ -11,15 +11,6 @@ import com.example.mv_ted.R
 import com.example.mv_ted.databinding.FragmentDetailBinding
 import com.example.mv_ted.models.data.model.Movie
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailFragment : Fragment() {
     private lateinit var _binding : FragmentDetailBinding
     override fun onCreateView(
@@ -46,7 +37,6 @@ class DetailFragment : Fragment() {
     companion object {
 
         const val MOVIE_DATA = "movie_details"
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(bundle: Bundle): DetailFragment {
             val fragment = DetailFragment()

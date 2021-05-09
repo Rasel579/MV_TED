@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,11 +15,12 @@ import com.example.mv_ted.R
 import com.example.mv_ted.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var _binding: ActivityMainBinding
+    private val _binding : ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_binding.root)
         if (savedInstanceState == null) {
             navigationToMainFragment()

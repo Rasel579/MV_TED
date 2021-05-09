@@ -22,21 +22,3 @@ fun getDataMovie(): MutableList<Movie> {
          Movie("X - Mens", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.x_men)
      )
 }
-
-  fun getMovie(position: Int, movieList: MutableList<Movie>): Movie {
-    return  movieList[position]
-}
-
-   fun getSize(movieList: MutableList<Movie>): Int {
-    return movieList.size
-}
-
-   fun addMovie(movie: Movie) {
-}
-   fun removeMovie(movie: Movie) {
-    TODO("Not yet implemented")
-}
-
-   fun updateMovie(movie: Movie, position: Int) {
-    TODO("Not yet implemented")
-}

@@ -36,23 +36,15 @@ class MovieCollectionAdapter(
 
 
    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var titleTextMovie: TextView? = null
-        var imageViewMovie: AppCompatImageView? = null
-        var dateUpcomingMovie: TextView? = null
-
-        init {
-            titleTextMovie = _binding.titleView
-            imageViewMovie = _binding.ImageView
-            dateUpcomingMovie = _binding.dateUpcoming
-        }
-
-
+        var titleTextMovie: TextView = let { _binding.titleView }
+        var imageViewMovie: AppCompatImageView = let { _binding.ImageView}
+        var dateUpcomingMovie: TextView = let { _binding.dateUpcoming }
 
         @RequiresApi(Build.VERSION_CODES.M)
         fun setData(movie: Movie) {
-            titleTextMovie?.text = movie.title
-            dateUpcomingMovie?.text = movie.date
-            imageViewMovie?.setImageResource(movie.image)
+            titleTextMovie.text = movie.title
+            dateUpcomingMovie.text = movie.date
+            imageViewMovie.setImageResource(movie.image)
             _binding.root.setOnClickListener {
                 onItemViewClickListener.onItemClickListener(movie)
             }

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.GravityCompat.apply
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mv_ted.R
@@ -40,7 +41,7 @@ class MainFragment : Fragment() {
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.getData().observe(viewLifecycleOwner, Observer {
+        viewModel.getData().observe(viewLifecycleOwner, {
             renderData(it as AppState)
         })
         viewModel.getMovieData()
@@ -54,17 +55,14 @@ class MainFragment : Fragment() {
                 listMovies = appState.movieData
                 loadingLayout?.visibility = View.GONE
                 initListView()
-                Snackbar.make(recycleViewLayout, "Success", Snackbar.LENGTH_LONG).show()
+                recycleViewLayout.showSnackBar("success", Snackbar.LENGTH_SHORT)
             }
             is AppState.Loading -> {
                 loadingLayout?.visibility = View.VISIBLE
             }
             is AppState.Error -> {
                 loadingLayout?.visibility = View.GONE
-                Snackbar.make(recycleViewLayout, "Error", Snackbar.LENGTH_LONG)
-                    .setAction("Reload") {
-                        viewModel.getMovieData()
-                    }.show()
+                recycleViewLayout.showSnackBar("Error", Snackbar.LENGTH_LONG, "reload", viewModel)
             }
         }
     }
@@ -85,9 +83,9 @@ class MainFragment : Fragment() {
             }
 
         })
-        recyclerViewNow?.layoutManager =
+        recyclerViewNow.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewNow?.adapter = movieCollectionAdapter
+        recyclerViewNow.adapter = movieCollectionAdapter
         val recyclerViewComingSoon: RecyclerView? = recycleViewLayoutComingSoon
         recyclerViewComingSoon?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -100,4 +98,16 @@ class MainFragment : Fragment() {
         _binding
     }
 
+}
+
+
+fun View.showSnackBar(message: String,  length : Int){
+    Snackbar.make(this, message, length).show()
+}
+
+fun View.showSnackBar(message: String, length: Int, actionText: String, viewModel : MainViewModel){
+    Snackbar.make(this, message, length)
+        .setAction(actionText) {
+            viewModel.getMovieData()
+        }.show()
 }

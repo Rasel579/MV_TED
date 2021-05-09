@@ -17,6 +17,5 @@ class MainViewModel(private val liveData: MutableLiveData<Any> = MutableLiveData
             sleep(1000)
             liveData.postValue(AppState.Success(repository.getDataFromLocalStorage()))
         }.start()
-
     }
 }
