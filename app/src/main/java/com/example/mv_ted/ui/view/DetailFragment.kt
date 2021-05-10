@@ -35,9 +35,7 @@ class DetailFragment : Fragment() {
     }
 
     companion object {
-
         const val MOVIE_DATA = "movie_details"
-        @JvmStatic
         fun newInstance(bundle: Bundle): DetailFragment {
             val fragment = DetailFragment()
             fragment.arguments = bundle

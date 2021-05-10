@@ -8,14 +8,17 @@ import java.lang.Thread.sleep
 class MainViewModel(private val liveData: MutableLiveData<Any> = MutableLiveData(),
                     private var repository: RepositoryImpl = RepositoryImpl()
 ) : ViewModel() {
-    // TODO: Implement the ViewModel
     fun getData() = liveData
     fun getMovieData() = getDataFromLocalSource()
     private fun getDataFromLocalSource() {
         liveData.value = AppState.Loading
         Thread{
-            sleep(1000)
+            sleep(TIME_TO_SLEEP.toLong())
             liveData.postValue(AppState.Success(repository.getDataFromLocalStorage()))
         }.start()
+    }
+
+    companion object {
+        const val  TIME_TO_SLEEP = 10000
     }
 }

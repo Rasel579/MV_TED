@@ -55,14 +55,14 @@ class MainFragment : Fragment() {
                 listMovies = appState.movieData
                 loadingLayout?.visibility = View.GONE
                 initListView()
-                recycleViewLayout.showSnackBar("success", Snackbar.LENGTH_SHORT)
+                recycleViewLayout.showSnackBar(getString(R.string.snack_bar_success_msg), Snackbar.LENGTH_SHORT)
             }
             is AppState.Loading -> {
                 loadingLayout?.visibility = View.VISIBLE
             }
             is AppState.Error -> {
                 loadingLayout?.visibility = View.GONE
-                recycleViewLayout.showSnackBar("Error", Snackbar.LENGTH_LONG, "reload", viewModel)
+                recycleViewLayout.showSnackBar(getString(R.string.snack_bar_error_msg), Snackbar.LENGTH_LONG, "reload", viewModel)
             }
         }
     }

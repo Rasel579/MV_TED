@@ -14,4 +14,6 @@
     <string name="textOnOptionItemSelectedMainFrame">Main Frame</string>
     <string name="NavigationFDawerText">Drawer</string>
     <string name="coming_soon">Coming soon</string>
+    <string name="snack_bar_error_msg">Error</string>
+    <string name="snack_bar_success_msg">success</string>
 </resources>
