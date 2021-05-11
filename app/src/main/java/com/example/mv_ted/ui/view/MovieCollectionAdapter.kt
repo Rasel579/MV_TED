@@ -9,11 +9,11 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mv_ted.databinding.ItemBinding
-import com.example.mv_ted.models.data.model.Movie
 import com.example.mv_ted.models.data.model.interfaces.OnItemViewClickListener
+import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
 
 class MovieCollectionAdapter(
-    private var listMovies: MutableList<Movie>,
+    private var listMovies: MutableList<MovieResultDTO>?,
     private val onItemViewClickListener: OnItemViewClickListener
 ) :
     RecyclerView.Adapter<MovieCollectionAdapter.ViewHolder>() {
@@ -29,22 +29,21 @@ class MovieCollectionAdapter(
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.setData(listMovies[position])
+        listMovies?.get(position)?.let { holder.setData(it) }
     }
 
-    override fun getItemCount() = listMovies.size
+    override fun getItemCount(): Int = listMovies?.size!!
 
 
    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var titleTextMovie: TextView = let { _binding.titleView }
+        private var titleTextMovie: TextView = let { _binding.titleView }
         var imageViewMovie: AppCompatImageView = let { _binding.ImageView}
-        var dateUpcomingMovie: TextView = let { _binding.dateUpcoming }
+        private var dateUpcomingMovie: TextView = let { _binding.dateUpcoming }
 
         @RequiresApi(Build.VERSION_CODES.M)
-        fun setData(movie: Movie) {
-            titleTextMovie.text = movie.title
-            dateUpcomingMovie.text = movie.date
-            imageViewMovie.setImageResource(movie.image)
+        fun setData(movie: MovieResultDTO) {
+            titleTextMovie.text = movie.original_title
+            dateUpcomingMovie.text = movie.release_date
             _binding.root.setOnClickListener {
                 onItemViewClickListener.onItemClickListener(movie)
             }

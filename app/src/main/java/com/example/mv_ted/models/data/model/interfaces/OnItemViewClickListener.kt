@@ -1,7 +1,7 @@
 package com.example.mv_ted.models.data.model.interfaces
 
-import com.example.mv_ted.models.data.model.Movie
+import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
 
 interface OnItemViewClickListener {
-   fun onItemClickListener(movie: Movie)
+   fun onItemClickListener(movie: MovieResultDTO)
 }

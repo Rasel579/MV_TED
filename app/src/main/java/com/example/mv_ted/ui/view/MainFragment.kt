@@ -2,45 +2,35 @@ package com.example.mv_ted.ui.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.transition.Transition
-import android.view.Gravity.apply
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.GravityCompat.apply
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mv_ted.R
 import com.example.mv_ted.databinding.MainFragmentBinding
-import com.example.mv_ted.models.data.model.Movie
 import com.example.mv_ted.models.data.model.interfaces.OnItemViewClickListener
+import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
+import com.example.mv_ted.models.data.model.showSnackBar
 import com.example.mv_ted.view_model.AppState
 import com.example.mv_ted.view_model.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.content_main.*
 
 @Suppress("NAME_SHADOWING")
 class MainFragment : Fragment() {
-
     private lateinit var _binding: MainFragmentBinding
-
-
-    companion object {
-        fun newInstance() = MainFragment()
+    private  val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
     }
-
-    private lateinit var viewModel: MainViewModel
-    private lateinit var listMovies: MutableList<Movie>
+    private var listMoviesNow: MutableList<MovieResultDTO>? = null
+    private var listMoviesUpcoming: MutableList<MovieResultDTO>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getData().observe(viewLifecycleOwner, {
             renderData(it as AppState)
         })
@@ -52,7 +42,8 @@ class MainFragment : Fragment() {
     private fun renderData(appState: AppState)= with(_binding) {
         when (appState) {
             is AppState.Success -> {
-                listMovies = appState.movieData
+                listMoviesNow = appState.movieDataNow
+                listMoviesUpcoming = appState.movieDataUpcoming
                 loadingLayout?.visibility = View.GONE
                 initListView()
                 recycleViewLayout.showSnackBar(getString(R.string.snack_bar_success_msg), Snackbar.LENGTH_SHORT)
@@ -69,27 +60,14 @@ class MainFragment : Fragment() {
 
     private fun initListView()= with(_binding) {
         val recyclerViewNow: RecyclerView = _binding.recycleViewLayout
-        val movieCollectionAdapter = MovieCollectionAdapter(listMovies, object : OnItemViewClickListener{
-            override fun onItemClickListener(movie: Movie) {
-                val manager = activity?.supportFragmentManager
-                manager?.let { manager ->
-                    val bundle = Bundle().apply{
-                             putParcelable(DetailFragment.MOVIE_DATA, movie)
-                    }
-                    manager.beginTransaction()
-                        .replace(R.id.content_main_frame, DetailFragment.newInstance(bundle))
-                        .commitAllowingStateLoss()
-                }
-            }
-
-        })
+        val movieCollectionAdapter = createAdapter(listMoviesNow)
         recyclerViewNow.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewNow.adapter = movieCollectionAdapter
         val recyclerViewComingSoon: RecyclerView? = recycleViewLayoutComingSoon
         recyclerViewComingSoon?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewComingSoon?.adapter = movieCollectionAdapter
+        recyclerViewComingSoon?.adapter = createAdapter(listMoviesUpcoming)
 
     }
 
@@ -98,16 +76,29 @@ class MainFragment : Fragment() {
         _binding
     }
 
+    private fun createAdapter(listMovies: MutableList<MovieResultDTO>?) = MovieCollectionAdapter(listMovies, object : OnItemViewClickListener{
+            override fun onItemClickListener(movie: MovieResultDTO) {
+                val manager = activity?.supportFragmentManager
+                manager?.let { manager ->
+                    val bundle = Bundle().apply{
+                        putParcelable(DetailFragment.MOVIE_DATA, movie)
+                    }
+                    manager.beginTransaction()
+                        .replace(R.id.content_main_frame, DetailFragment.newInstance(bundle))
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+            }
+        })
+
+
+
+
+    companion object {
+        fun newInstance() = MainFragment()
+    }
+
+
 }
 
 
-fun View.showSnackBar(message: String,  length : Int){
-    Snackbar.make(this, message, length).show()
-}
-
-fun View.showSnackBar(message: String, length: Int, actionText: String, viewModel : MainViewModel){
-    Snackbar.make(this, message, length)
-        .setAction(actionText) {
-            viewModel.getMovieData()
-        }.show()
-}
