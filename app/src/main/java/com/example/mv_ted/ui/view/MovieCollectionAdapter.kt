@@ -32,8 +32,7 @@ class MovieCollectionAdapter(
         listMovies?.get(position)?.let { holder.setData(it) }
     }
 
-    override fun getItemCount(): Int = listMovies!!.size
-
+    override fun getItemCount(): Int = listMovies?.size ?: 0
 
    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var titleTextMovie: TextView = let { _binding.titleView }

@@ -17,10 +17,12 @@ import javax.net.ssl.HttpsURLConnection
      fun loadMovies(uri: URL): MutableList<MovieResultDTO>? {
          try {
                urlConnection = uri.openConnection() as HttpsURLConnection
-               urlConnection.requestMethod = "GET"
-               urlConnection.addRequestProperty("Authorization", BuildConfig.MOVIE_DB_APIKEY)
-               urlConnection.addRequestProperty("Content-Type", "application/json;charset=utf-8")
-               urlConnection.readTimeout = 10000
+               urlConnection.apply {
+                   requestMethod = "GET"
+                   addRequestProperty("Authorization", BuildConfig.MOVIE_DB_APIKEY)
+                   addRequestProperty("Content-Type", "application/json;charset=utf-8")
+                   readTimeout = 10000
+               }
                val bufferReader = BufferedReader(InputStreamReader(urlConnection.inputStream))
                val lines = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
                                 getLinesForOldVer(bufferReader)
@@ -28,7 +30,6 @@ import javax.net.ssl.HttpsURLConnection
                                 getLines(bufferReader)
                             }
              val temp = Gson().fromJson(lines,MovieDTO::class.java)
-             //Log.d("GSON_OBJ", temp.toString())
              return temp.results
          } catch (e: Exception){
              e.printStackTrace()
@@ -37,7 +38,6 @@ import javax.net.ssl.HttpsURLConnection
     }
         return null
  }
-
 }
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -50,8 +50,6 @@ private fun getLinesForOldVer(bufferReader: BufferedReader): String {
     while (bufferReader.readLine().also { tempVar = it } != null) {
         rawData.append(tempVar).append("\n")
     }
-
     bufferReader.close()
-    //Log.d("BufferedReader", rawData.toString())
     return rawData.toString()
 }

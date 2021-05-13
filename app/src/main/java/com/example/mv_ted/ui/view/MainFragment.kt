@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mv_ted.R
 import com.example.mv_ted.databinding.MainFragmentBinding
 import com.example.mv_ted.models.data.model.interfaces.OnItemViewClickListener
@@ -23,7 +22,7 @@ import com.example.mv_ted.models.data.model.showSnackBar
 import com.example.mv_ted.view_model.AppState
 import com.example.mv_ted.view_model.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-
+private const val TAG = "After broadcasting"
 @Suppress("NAME_SHADOWING")
 class MainFragment : Fragment() {
     private lateinit var _binding: MainFragmentBinding
@@ -67,39 +66,35 @@ class MainFragment : Fragment() {
         return _binding.root
     }
 
-
     private fun renderData(appState: AppState)= with(_binding) {
         when (appState) {
             is AppState.Success -> {
                 listMoviesNow = appState.movieDataNow
-                //listMoviesUpcoming = appState.movieDataUpcoming
-                loadingLayout?.visibility = View.GONE
+                loadingLayout.visibility = View.GONE
                 initListView()
                 recycleViewLayout.showSnackBar(getString(R.string.snack_bar_success_msg), Snackbar.LENGTH_SHORT)
             }
             is AppState.Loading -> {
-                loadingLayout?.visibility = View.VISIBLE
+                loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Error -> {
-                loadingLayout?.visibility = View.GONE
+                loadingLayout.visibility = View.GONE
                 recycleViewLayout.showSnackBar(getString(R.string.snack_bar_error_msg), Snackbar.LENGTH_LONG, "reload", viewModel)
             }
         }
     }
 
     private fun initListView()= with(_binding) {
-        val recyclerViewNow: RecyclerView = recycleViewLayout
-        val movieCollectionAdapter = createAdapter(listMoviesNow)
+        val recyclerViewNow = recycleViewLayout
         recyclerViewNow.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewNow.adapter = movieCollectionAdapter
-        Log.e("After broadcasting", listMoviesUpcoming.toString())
-        val recyclerViewComingSoon: RecyclerView? = recycleViewLayoutComingSoon
-        recyclerViewComingSoon?.adapter = createAdapter(listMoviesUpcoming)
-        recyclerViewComingSoon?.layoutManager =
+        recyclerViewNow.adapter = createAdapter(listMoviesNow)
+        Log.d(TAG, listMoviesUpcoming.toString())
+        val recyclerViewComingSoon = recycleViewLayoutComingSoon
+        recyclerViewComingSoon.adapter = createAdapter(listMoviesUpcoming)
+        recyclerViewComingSoon.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
-
 
     override fun onDestroy() {
         context?.let {
@@ -122,8 +117,6 @@ class MainFragment : Fragment() {
                 }
             }
         })
-
-
     companion object {
         fun newInstance() = MainFragment()
     }
