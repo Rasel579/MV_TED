@@ -1,8 +1,11 @@
 package com.example.mv_ted.models.data.model.rest_mdbApi
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.mv_ted.BuildConfig
+import com.example.mv_ted.models.data.model.rest_mdbApi.MovieDTO
+import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -12,7 +15,7 @@ import java.net.URL
 import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
 
- object MoviesLoader {
+ object MoviesLoaderForService {
      private lateinit var urlConnection : HttpsURLConnection
      fun loadMovies(uri: URL): MutableList<MovieResultDTO>? {
          try {

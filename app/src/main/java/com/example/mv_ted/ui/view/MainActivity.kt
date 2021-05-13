@@ -1,5 +1,7 @@
 package com.example.mv_ted.ui.view
 
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -7,14 +9,16 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.mv_ted.R
 import com.example.mv_ted.databinding.ActivityMainBinding
+import com.example.mv_ted.models.data.model.services_and_broadcastReceivers.MainBroadcastReceiver
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
+    private val broadcastReceiver = MainBroadcastReceiver()
     private val _binding : ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -25,7 +29,9 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             navigationToMainFragment()
         }
-        initView();
+        initView()
+        registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+
     }
 
     private fun navigationToMainFragment() {
@@ -60,10 +66,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.setting_item_menu -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     Toast.makeText(this, getString(R.string.NavigationFDawerText), Toast.LENGTH_SHORT).show()
-                    return@setNavigationItemSelectedListener true
                 }
             }
-            return@setNavigationItemSelectedListener false
+           false
         }
     }
 
@@ -99,5 +104,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(broadcastReceiver)
+        super.onDestroy()
     }
 }

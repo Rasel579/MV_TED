@@ -1,21 +1,15 @@
-*.iml
-*.
 .gradle
-.idea
 /local.properties
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-
+/build
+/captures
+.externalNativeBuild
+.cxx
 ## Java
 *.class
 *.war
@@ -37,12 +31,14 @@ android/gen/
 .idea/
 *.ipr
 *.iws
+*.iml
 com_crashlytics_export_strings.xml
 
 ## Gradle
 .gradle/
 
 ## OS Specific
+.DS_Store
 
 # built application files
 *.apk
@@ -52,6 +48,7 @@ com_crashlytics_export_strings.xml
 *.dex
 
 # Local configuration file (sdk path, etc)
+local.properties
 project.properties
 apikey.properties
 *.p12

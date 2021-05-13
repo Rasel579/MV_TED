@@ -1,6 +1,5 @@
 package com.example.mv_ted.models.data.model
 
-import com.example.mv_ted.models.data.model.rest_mdbApi.MovieDTO
 import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
 import java.net.URL
 
