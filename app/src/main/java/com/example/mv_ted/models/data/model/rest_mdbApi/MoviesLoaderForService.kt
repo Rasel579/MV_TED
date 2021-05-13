@@ -31,7 +31,6 @@ import javax.net.ssl.HttpsURLConnection
                                 getLines(bufferReader)
                             }
              val temp = Gson().fromJson(lines,MovieDTO::class.java)
-             //Log.d("GSON_OBJ", temp.toString())
              return temp.results
          } catch (e: Exception){
              e.printStackTrace()
@@ -55,6 +54,5 @@ private fun getLinesForOldVer(bufferReader: BufferedReader): String {
     }
 
     bufferReader.close()
-    //Log.d("BufferedReader", rawData.toString())
     return rawData.toString()
 }
