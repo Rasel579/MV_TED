@@ -6,7 +6,6 @@ import com.example.mv_ted.models.data.model.Repository
 import com.example.mv_ted.models.data.model.RepositoryImpl
 import com.example.mv_ted.models.data.model.uriNow
 import com.example.mv_ted.models.data.model.uriUpComing
-import java.lang.Thread.sleep
 
 class MainViewModel(private val liveData: MutableLiveData<Any> = MutableLiveData(),
                     private var repository: Repository = RepositoryImpl()
