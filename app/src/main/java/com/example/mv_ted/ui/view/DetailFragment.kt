@@ -10,16 +10,9 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.example.mv_ted.R
 import com.example.mv_ted.databinding.FragmentDetailBinding
 import com.example.mv_ted.models.data.model.Movie
+import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
+import kotlinx.android.synthetic.main.item.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailFragment : Fragment() {
     private lateinit var _binding : FragmentDetailBinding
     override fun onCreateView(
@@ -33,21 +26,14 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)= with(_binding) {
         super.onViewCreated(view, savedInstanceState)
-        val movie = arguments?.getParcelable<Movie>(MOVIE_DATA)
-        movie?.image?.let {
-           movieImage.setImageResource(
-                it
-            )
-        }
-        movieIdName.text = movie?.title
-        movieIdDate.text = movie?.date.toString()
+        val movie = arguments?.getParcelable<MovieResultDTO>(MOVIE_DATA)
+        movieOverview.text = movie?.overview
+        movieIdName.text = movie?.original_title
+        movieIdDate.text = movie?.release_date
     }
 
     companion object {
-
         const val MOVIE_DATA = "movie_details"
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
         fun newInstance(bundle: Bundle): DetailFragment {
             val fragment = DetailFragment()
             fragment.arguments = bundle

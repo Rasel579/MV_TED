@@ -6,7 +6,7 @@
         android:id="@+id/main_frame_menu"
         android:orderInCategory="10"
         android:title="@string/main_frame_item_menu"
-        android:icon="@android:drawable/ic_menu_upload_you_tube"
+        android:icon="@android:drawable/ic_menu_my_calendar"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/favorite_item_menu"

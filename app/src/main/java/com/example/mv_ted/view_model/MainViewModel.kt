@@ -2,21 +2,22 @@ package com.example.mv_ted.view_model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.mv_ted.models.data.model.Repository
 import com.example.mv_ted.models.data.model.RepositoryImpl
-import java.lang.Thread.sleep
+import com.example.mv_ted.models.data.model.uriNow
+import com.example.mv_ted.models.data.model.uriUpComing
 
 class MainViewModel(private val liveData: MutableLiveData<Any> = MutableLiveData(),
-                    private var repository: RepositoryImpl = RepositoryImpl()
+                    private var repository: Repository = RepositoryImpl()
 ) : ViewModel() {
-    // TODO: Implement the ViewModel
     fun getData() = liveData
     fun getMovieData() = getDataFromLocalSource()
     private fun getDataFromLocalSource() {
         liveData.value = AppState.Loading
         Thread{
-            sleep(1000)
-            liveData.postValue(AppState.Success(repository.getDataFromLocalStorage()))
+            liveData.postValue(AppState.Success(
+                repository.getDataFromServer(uriNow),
+                repository.getDataFromServer(uriUpComing)))
         }.start()
-
     }
 }

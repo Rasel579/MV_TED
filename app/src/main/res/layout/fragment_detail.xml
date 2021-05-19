@@ -27,13 +27,20 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/movie_image"
-            app:layout_constraintBottom_toBottomOf="@id/movie_id_date"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintStart_toEndOf="@id/movie_image"
+            app:layout_constraintBottom_toBottomOf="@id/movie_overview"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintVertical_bias="0.2"
             android:textSize="@dimen/movie_title_text_size_detail_frg"
             android:textStyle="bold"
             />
+        <TextView
+            android:id="@+id/movie_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/movie_id_date"
+            app:layout_constraintTop_toBottomOf="@id/movie_id_name"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/movie_id_date"
@@ -45,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="0.8"
-            app:layout_constraintTop_toTopOf="@id/movie_image" />
+            app:layout_constraintTop_toBottomOf="@id/movie_image" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
