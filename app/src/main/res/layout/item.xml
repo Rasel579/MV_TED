@@ -8,7 +8,8 @@
     android:layout_marginTop="@dimen/card_view_margin_top"
     android:layout_marginStart="@dimen/card_view_margin_start"
     app:cardCornerRadius="@dimen/card_view_corner_radius"
-    app:cardElevation="@dimen/card_view_card_elevation">
+    app:cardElevation="@dimen/card_view_card_elevation"
+    android:filterTouchesWhenObscured="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +23,7 @@
             />
         <TextView
             android:id="@+id/title_view"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_text_view_marginTop"
             android:textSize="@dimen/item_recycler_text_size"/>

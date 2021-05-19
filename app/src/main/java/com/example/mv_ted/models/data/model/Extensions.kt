@@ -1,12 +1,18 @@
 package com.example.mv_ted.models.data.model
 
 import android.view.View
+import com.example.mv_ted.R
 import com.example.mv_ted.view_model.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.net.URL
+import java.util.*
 
 val uriNow = URL("https://api.themoviedb.org/3/movie/popular")
 val uriUpComing = URL("https://api.themoviedb.org/3/movie/upcoming")
+const val imageUri = "https://image.tmdb.org/t/p/w500"
+const val uriRetroApi = "https://api.themoviedb.org/3/movie/"
+const val TAG = "After broadcasting"
+
 fun View.showSnackBar(message: String, length : Int){
     Snackbar.make(this, message, length).show()
 }
@@ -17,3 +23,28 @@ fun View.showSnackBar(message: String, length: Int, actionText: String, viewMode
             viewModel.getMovieData()
         }.show()
 }
+
+//fake data
+fun getDataMovie(): MutableList<Movie> {
+    return mutableListOf(
+        Movie("Justice League", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.justice_league),
+        Movie("Movie_Some", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.movie_poster),
+        Movie("Avengers", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.avengers),
+        Movie("Kool", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.kool),
+        Movie("Black Widow", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.black_widow),
+        Movie("Mortal Kombat", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.mortal_kombat),
+        Movie("Scary Movie", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.scary_movie),
+        Movie("Spiral", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.spiral),
+        Movie("US", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.us),
+        Movie("Wonder Woman", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.wonder_woman),
+        Movie("X - Mens", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", R.drawable.x_men)
+    )
+}
+
+// response for broadcast receiver
+const val DETAILS_INTENT_FILTER = "Details intent filter"
+const val DETAILS_EMPTY_INTENT_EXTRA = "Intent is empty"
+const val DETAILS_LOAD_RESULT_EXTRA = "Load result"
+const val DETAILS_RESPONSE_EMPTY_EXTRA = "Response is empty"
+const val DETAILS_RESPONSE_SUCCESS_EXTRA = "SUCCESS"
+const val DETAILS_LOADED_MOVIES = "Loaded Movies"

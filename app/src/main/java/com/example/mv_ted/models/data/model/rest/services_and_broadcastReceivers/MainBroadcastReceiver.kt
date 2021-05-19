@@ -1,4 +1,4 @@
-package com.example.mv_ted.models.data.model.services_and_broadcastReceivers
+package com.example.mv_ted.models.data.model.rest.services_and_broadcastReceivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -9,14 +9,13 @@ import java.lang.StringBuilder
 class MainBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         StringBuilder().apply {
-            append(MainBroadcastReceiver.MSG_FROM_BROADCAST_RECEIVER)
+            append(MSG_FROM_BROADCAST_RECEIVER)
             append(" Action ${intent?.action}")
             toString().also {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             }
         }
     }
-
     companion object{
         const val MSG_FROM_BROADCAST_RECEIVER = "Message from Android OS"
     }

@@ -14,7 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.mv_ted.R
 import com.example.mv_ted.databinding.ActivityMainBinding
-import com.example.mv_ted.models.data.model.services_and_broadcastReceivers.MainBroadcastReceiver
+import com.example.mv_ted.models.data.model.rest.services_and_broadcastReceivers.MainBroadcastReceiver
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {

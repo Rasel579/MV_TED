@@ -1,20 +1,14 @@
-package com.example.mv_ted.models.data.model.services_and_broadcastReceivers
+package com.example.mv_ted.models.data.model.rest.services_and_broadcastReceivers
 
 import android.app.IntentService
 import android.content.Intent
 import android.os.Parcelable
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
-import com.example.mv_ted.models.data.model.rest_mdbApi.MoviesLoaderForService
-import com.example.mv_ted.models.data.model.uriUpComing
+import com.example.mv_ted.models.data.model.*
+import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieResultDTO
+import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MoviesLoader
 import java.util.ArrayList
 
- const val DETAILS_INTENT_FILTER = "Details intent filter"
- const val DETAILS_EMPTY_INTENT_EXTRA = "Intent is empty"
- const val DETAILS_LOAD_RESULT_EXTRA = "Load result"
- const val DETAILS_RESPONSE_EMPTY_EXTRA = "Response is empty"
- const val DETAILS_RESPONSE_SUCCESS_EXTRA = "SUCCESS"
- const val DETAILS_LOADED_MOVIES = "Loaded Movies"
 
 class DetailsServices(name: String = "Details_Services") : IntentService(name) {
     private val broadcastIntent = Intent(DETAILS_INTENT_FILTER)
@@ -22,7 +16,7 @@ class DetailsServices(name: String = "Details_Services") : IntentService(name) {
         if (intent == null){
             onEmptyIntent()
         } else{
-            onResponse(MoviesLoaderForService.loadMovies(uriUpComing))
+            onResponse(MoviesLoader.loadMovies(uriUpComing))
         }
     }
 
