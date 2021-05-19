@@ -1,11 +1,11 @@
 package com.example.mv_ted.models.data.model
 
-interface Repository {
+import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
+import java.net.URL
 
-    fun getMovie(position: Int) : Movie
-    fun getSize() : Int
-    fun addMovie(movie: Movie)
-    fun removeMovie(movie: Movie)
-    fun updateMovie(movie: Movie, position: Int)
-    companion object fun init(): List<Movie>
+interface Repository {
+    fun getDataFromServer(uri: URL) : MutableList<MovieResultDTO>?
+    fun getDataFromLocalStorage() : MutableList<Movie>
+    fun getDataFromMovieAPI() : MutableList<Movie>
+
 }

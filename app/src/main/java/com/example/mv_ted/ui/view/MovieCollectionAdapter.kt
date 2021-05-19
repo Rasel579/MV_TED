@@ -8,46 +8,44 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mv_ted.R
-import com.example.mv_ted.models.data.model.Movie
-import com.example.mv_ted.models.data.model.RepositoryImpl
+import com.example.mv_ted.databinding.ItemBinding
+import com.example.mv_ted.models.data.model.interfaces.OnItemViewClickListener
+import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
 
-class MovieCollectionAdapter(private var listMovies: RepositoryImpl) : RecyclerView.Adapter<MovieCollectionAdapter.ViewHolder>() {
-
+class MovieCollectionAdapter(
+    private var listMovies: MutableList<MovieResultDTO>?,
+    private val onItemViewClickListener: OnItemViewClickListener
+) :
+    RecyclerView.Adapter<MovieCollectionAdapter.ViewHolder>() {
+    private lateinit var _binding : ItemBinding
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MovieCollectionAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item, parent, false)
-            return ViewHolder(itemView)
+    ): ViewHolder {
+        _binding = ItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        return ViewHolder(_binding.root)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onBindViewHolder(holder: MovieCollectionAdapter.ViewHolder, position: Int) {
-        listMovies =  RepositoryImpl()
-        listMovies.init()
-        holder.setData(listMovies.getMovie(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        listMovies?.get(position)?.let { holder.setData(it) }
     }
 
-    override fun getItemCount() = listMovies.getSize()
+    override fun getItemCount(): Int = listMovies?.size ?: 0
 
+   inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private var titleTextMovie: TextView = let { _binding.titleView }
+        var imageViewMovie: AppCompatImageView = let { _binding.ImageView}
+        private var dateUpcomingMovie: TextView = let { _binding.dateUpcoming }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var titleTextMovie: TextView? = null
-
-        var imageViewMovie : AppCompatImageView? = null
-        var dateUpcomingMovie : TextView? = null
-        init {
-            titleTextMovie = itemView.findViewById(R.id.title_view)
-            imageViewMovie = itemView.findViewById(R.id.ImageView)
-            dateUpcomingMovie = itemView.findViewById(R.id.dateUpcoming)
-        }
         @RequiresApi(Build.VERSION_CODES.M)
-        fun setData(movie: Movie) {
-            titleTextMovie?.text = movie.title
-            dateUpcomingMovie?.text = movie.date.toString()
+        fun setData(movie: MovieResultDTO) {
+            titleTextMovie.text = movie.original_title
+            dateUpcomingMovie.text = movie.release_date
+            _binding.root.setOnClickListener {
+                onItemViewClickListener.onItemClickListener(movie)
+            }
         }
     }
 
