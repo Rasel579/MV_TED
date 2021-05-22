@@ -3,10 +3,10 @@
     <dimen name="height_nav_header">300dp</dimen>
     <dimen name="nav_header_margin_text_top">10dp</dimen>
     <dimen name="text_size_nav_header">30sp</dimen>
-    <dimen name="date_text_size_detail_frgmnt">40sp</dimen>
+    <dimen name="date_text_size_detail_frgmnt">25sp</dimen>
     <dimen name="date_text_marginTop_detail_frg">40dp</dimen>
-    <dimen name="width_img_detail_frg">200dp</dimen>
-    <dimen name="height_img_detail_frg">300dp</dimen>
+    <dimen name="width_img_detail_frg">180dp</dimen>
+    <dimen name="height_img_detail_frg">250dp</dimen>
     <dimen name="frame_margin_top_detail_frg">10dp</dimen>
     <dimen name="movie_title_text_size_detail_frg">25sp</dimen>
     <dimen name="item_recycler_text_size">15sp</dimen>
@@ -17,7 +17,7 @@
     <dimen name="card_view_card_elevation">10dp</dimen>
     <dimen name="card_view_corner_radius">20dp</dimen>
     <dimen name="card_view_margin_start">10dp</dimen>
-    <dimen name="card_view_margin_top">30dp</dimen>
+    <dimen name="card_view_margin_top">45dp</dimen>
     <dimen name="main_frg_margin_top">30dp</dimen>
     <dimen name="recycler_view_now_playing_margin_top">45dp</dimen>
     <dimen name="recycler_view_now_playing_margin_bottom">20dp</dimen>
@@ -25,4 +25,7 @@
     <dimen name="recycler_view_comming_soon_margin_top">330dp</dimen>
     <dimen name="recycler_view_coming_soon_margin_bottom">20dp</dimen>
     <dimen name="movie_title_width_detail_frg">180dp</dimen>
+    <dimen name="text_size_for_comment">15sp</dimen>
+    <dimen name="height_divider_in_comment">3dp</dimen>
+    <dimen name="heght_of_recycle_view_comments">50dp</dimen>
 </resources>

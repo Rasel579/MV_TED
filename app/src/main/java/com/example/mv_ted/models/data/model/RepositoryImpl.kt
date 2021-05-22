@@ -1,5 +1,9 @@
 package com.example.mv_ted.models.data.model
 
+import com.example.mv_ted.models.data.model.database.comment_db.CommentDataBase
+import com.example.mv_ted.models.data.model.database.comment_db.CommentEntity
+import com.example.mv_ted.models.data.model.database.liked_movie_db.LikesMoviesDatabase
+import com.example.mv_ted.models.data.model.database.liked_movie_db.LikesMoviesEntity
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieDTO
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieResultDTO
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MoviesLoader
@@ -19,5 +23,40 @@ class RepositoryImpl : Repository {
 
     override fun getDataFromLocalStorage() = getDataMovie()
     override fun getDataFromMovieAPI() = getDataMovie()
+    override fun getHistoryComments(movieId: String): List<Comment> =  convertCommentEntity(
+        CommentDataBase.db.commentDao().getDataByMovie(movieId))
 
- }
+
+    private fun convertCommentEntity(getDataByMovie: List<CommentEntity>) : List<Comment> =
+               getDataByMovie.map {
+                    Comment(it.id, it.movieId, it.comment)
+               }
+    override fun saveEntity(comment: Comment){
+        CommentDataBase.db.commentDao().insert(convertCommentToCommentEntity(comment))
+    }
+
+    private fun convertCommentToCommentEntity(comment: Comment): CommentEntity =
+        CommentEntity(0, comment.movieId, comment.comment)
+
+    override fun getAllLikesMovies(): List<Movie> =
+        convertLikesEntityToMovie(LikesMoviesDatabase.db.likesMoviesDao().getLikesMovies())
+
+
+    private fun convertLikesEntityToMovie(likesMovies: List<LikesMoviesEntity>) =
+        likesMovies.map {
+            Movie(it.title, it.date, it.image)
+        }
+
+
+
+    override fun saveLikes(movie: Movie) {
+       LikesMoviesDatabase.db.likesMoviesDao().insertLike(convertMovieToLikesEntity(movie))
+    }
+
+    private fun convertMovieToLikesEntity(movie: Movie): LikesMoviesEntity =
+        LikesMoviesEntity(0,movie.title, movie.image, movie.date)
+
+}
+
+
+

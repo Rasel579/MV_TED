@@ -7,9 +7,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MovieResultDTO(
+    val id : String,
     @SerializedName("original_title")
     val originalTitle: String,
     val overview: String,
+    val adult: Boolean,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("poster_path")

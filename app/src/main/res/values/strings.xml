@@ -16,4 +16,7 @@
     <string name="coming_soon">Coming soon</string>
     <string name="snack_bar_error_msg">Error</string>
     <string name="snack_bar_success_msg">success</string>
+    <string name="hide_adult_movies_menu_title">Hide Adult movies</string>
+    <string name="hint_comment">Enter your comment</string>
+    <string name="toast_menu_favorite_text">Favorite_Item</string>
 </resources>

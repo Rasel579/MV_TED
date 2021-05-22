@@ -11,4 +11,8 @@ interface Repository {
     fun getDataFromServerRetrofitUpcoming(callback : Callback<MovieDTO>)
     fun getDataFromLocalStorage() : MutableList<Movie>
     fun getDataFromMovieAPI() : MutableList<Movie>
+    fun getHistoryComments(movieId : String) : List<Comment>
+    fun saveEntity(comment: Comment)
+    fun getAllLikesMovies() : List<Movie>
+    fun saveLikes(movie: Movie)
 }
