@@ -12,9 +12,10 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.example.mv_ted.R
 import com.example.mv_ted.databinding.ActivityMainBinding
-import com.example.mv_ted.models.data.model.services_and_broadcastReceivers.MainBroadcastReceiver
+import com.example.mv_ted.models.data.model.rest.services_and_broadcastReceivers.MainBroadcastReceiver
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -27,16 +28,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(_binding.root)
         if (savedInstanceState == null) {
-            navigationToMainFragment()
+            navigationFragment(MainFragment.newInstance())
         }
         initView()
         registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
     }
 
-    private fun navigationToMainFragment() {
+    private fun navigationFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content_main_frame, MainFragment.newInstance())
+            .replace(R.id.content_main_frame, fragment)
             .commitNow()
     }
 
@@ -98,9 +99,13 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.main_frame_menu -> {
-                navigationToMainFragment()
+                navigationFragment(MainFragment.newInstance())
                 Toast.makeText(baseContext, getString(R.string.textOnOptionItemSelectedMainFrame), Toast.LENGTH_SHORT).show()
                 return true
+            }
+            R.id.favorite_item_menu ->{
+                navigationFragment(LikedMoviesFragment.newInstance())
+                Toast.makeText(baseContext, getString(R.string.toast_menu_favorite_text), Toast.LENGTH_SHORT).show()
             }
         }
         return super.onOptionsItemSelected(item)

@@ -9,8 +9,10 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mv_ted.databinding.ItemBinding
+import com.example.mv_ted.models.data.model.imageUri
 import com.example.mv_ted.models.data.model.interfaces.OnItemViewClickListener
-import com.example.mv_ted.models.data.model.rest_mdbApi.MovieResultDTO
+import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieResultDTO
+import com.squareup.picasso.Picasso
 
 class MovieCollectionAdapter(
     private var listMovies: MutableList<MovieResultDTO>?,
@@ -41,8 +43,11 @@ class MovieCollectionAdapter(
 
         @RequiresApi(Build.VERSION_CODES.M)
         fun setData(movie: MovieResultDTO) {
-            titleTextMovie.text = movie.original_title
-            dateUpcomingMovie.text = movie.release_date
+            titleTextMovie.text = movie.originalTitle
+            dateUpcomingMovie.text = movie.releaseDate
+            Picasso.get()
+                .load(imageUri + movie.posterPath)
+                .into(imageViewMovie)
             _binding.root.setOnClickListener {
                 onItemViewClickListener.onItemClickListener(movie)
             }
