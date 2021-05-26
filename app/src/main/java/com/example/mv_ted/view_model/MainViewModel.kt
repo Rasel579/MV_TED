@@ -9,9 +9,7 @@ import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieDTO
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieResultDTO
 import com.example.mv_ted.models.data.model.uriNow
 import com.example.mv_ted.models.data.model.uriUpComing
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class MainViewModel(val liveData: MutableLiveData<Any> = MutableLiveData(),
                     private var repository: Repository = RepositoryImpl()
