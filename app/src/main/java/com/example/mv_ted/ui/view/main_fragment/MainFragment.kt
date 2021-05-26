@@ -1,7 +1,6 @@
-package com.example.mv_ted.ui.view
+package com.example.mv_ted.ui.view.main_fragment
 
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -16,9 +15,11 @@ import com.example.mv_ted.models.data.model.TAG
 import com.example.mv_ted.models.data.model.interfaces.OnItemViewClickListener
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieResultDTO
 import com.example.mv_ted.models.data.model.showSnackBar
+import com.example.mv_ted.ui.view.detail_fragment.DetailFragment
 import com.example.mv_ted.view_model.AppState
 import com.example.mv_ted.view_model.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+
 @Suppress("NAME_SHADOWING")
 class MainFragment : Fragment() {
     private lateinit var _binding: MainFragmentBinding

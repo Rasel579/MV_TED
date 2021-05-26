@@ -1,6 +1,5 @@
 package com.example.mv_ted.view_model
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mv_ted.models.data.model.Repository
@@ -78,7 +77,9 @@ class MainViewModel(val liveData: MutableLiveData<Any> = MutableLiveData(),
                 val noAdultMovies : MutableList<MovieResultDTO> = mutableListOf()
            if (moviesPlayingNow != null) {
                for (movie in moviesPlayingNow) {
-                    if (!movie.adult) noAdultMovies.add(movie)
+                    if (!movie.adult) {
+                        noAdultMovies.add(movie)
+                    }
                }
            }
            return noAdultMovies

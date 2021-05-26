@@ -1,4 +1,4 @@
-package com.example.mv_ted.ui.view
+package com.example.mv_ted.ui.view.main_fragment
 
 import android.os.Build
 import android.view.LayoutInflater
