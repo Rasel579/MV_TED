@@ -57,10 +57,11 @@ class ContactProviderFragment : Fragment() {
         grantResults: IntArray
     ) {
         when(requestCode ){
-              REQUEST_CODE ->
+              REQUEST_CODE -> {
                   if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                  getContacts()
-              } else{
+                      getContacts()
+              }
+              } else -> {
                   context?.let {
                       AlertDialog.Builder(it)
                           .setTitle(getString(R.string.title_alert_explonation_contacts_rermission))
