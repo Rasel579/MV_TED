@@ -15,7 +15,13 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.mv_ted.R
 import com.example.mv_ted.databinding.ActivityMainBinding
+import com.example.mv_ted.expirements.ContactProviderFragment
 import com.example.mv_ted.models.data.model.rest.services_and_broadcastReceivers.MainBroadcastReceiver
+import com.example.mv_ted.ui.view.favorite_movies_fragment.LikedMoviesFragment
+import com.example.mv_ted.ui.view.main_fragment.MainFragment
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.view.*
+import kotlin.with as with
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -46,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         initDrawer(toolbar)
     }
 
-    private fun initToolbar(): androidx.appcompat.widget.Toolbar {
-        val toolbar = _binding.appBarMain.toolbar
+    private fun initToolbar(): androidx.appcompat.widget.Toolbar = with(_binding) {
+        val toolbar = app_bar_main.toolbar
         setSupportActionBar(toolbar)
         return toolbar
     }
@@ -106,6 +112,10 @@ class MainActivity : AppCompatActivity() {
             R.id.favorite_item_menu ->{
                 navigationFragment(LikedMoviesFragment.newInstance())
                 Toast.makeText(baseContext, getString(R.string.toast_menu_favorite_text), Toast.LENGTH_SHORT).show()
+            }
+            R.id.to_contacts -> {
+                navigationFragment(ContactProviderFragment.newInstance())
+                Toast.makeText(baseContext, getString(R.string.toast_menu_contacts_title), Toast.LENGTH_LONG).show()
             }
         }
         return super.onOptionsItemSelected(item)

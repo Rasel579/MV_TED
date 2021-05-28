@@ -1,4 +1,4 @@
-package com.example.mv_ted.ui.view
+package com.example.mv_ted.ui.view.favorite_movies_fragment
 
 import android.view.LayoutInflater
 import android.view.View

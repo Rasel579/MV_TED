@@ -1,4 +1,4 @@
-package com.example.mv_ted.ui.view
+package com.example.mv_ted.ui.view.detail_fragment
 
 
 import android.os.Bundle

@@ -1,13 +1,12 @@
-package com.example.mv_ted.ui.view
+package com.example.mv_ted.ui.view.detail_fragment
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mv_ted.databinding.ItemDetailBinding
 import com.example.mv_ted.models.data.model.Comment
-import com.example.mv_ted.ui.view.DetailFragmentAdapter.*
+import com.example.mv_ted.ui.view.detail_fragment.DetailFragmentAdapter.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 
 class DetailFragmentAdapter

@@ -19,4 +19,10 @@
     <string name="hide_adult_movies_menu_title">Hide Adult movies</string>
     <string name="hint_comment">Enter your comment</string>
     <string name="toast_menu_favorite_text">Favorite_Item</string>
+    <string name="to_contacts_menu_title">To Contacts</string>
+    <string name="go_to_contacts">Go to contacts</string>
+    <string name="toast_menu_contacts_title">Contacts Fragment</string>
+    <string name="title_alert_explonation_contacts_rermission">Access to contacts</string>
+    <string name="content_alert_explonation_contact_permission">Why we using this</string>
+    <string name="negative_button_alert_contact_permission">Close</string>
 </resources>

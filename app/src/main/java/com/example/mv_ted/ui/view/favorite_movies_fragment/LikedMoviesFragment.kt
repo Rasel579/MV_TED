@@ -1,4 +1,4 @@
-package com.example.mv_ted.ui.view
+package com.example.mv_ted.ui.view.favorite_movies_fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +13,7 @@ import com.example.mv_ted.view_model.LikedMovieViewModel
 
 class LikedMoviesFragment : Fragment() {
     private lateinit var binding : FragmentLikedMoviesBinding
-    private val adapter : LikedMovieAdapter by lazy { LikedMovieAdapter()}
+    private val adapter : LikedMovieAdapter by lazy { LikedMovieAdapter() }
     private val viewModel :LikedMovieViewModel by lazy {
         ViewModelProvider(this).get(LikedMovieViewModel ::class.java)
     }
