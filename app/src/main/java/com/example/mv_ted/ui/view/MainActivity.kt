@@ -21,7 +21,6 @@ import com.example.mv_ted.ui.view.favorite_movies_fragment.LikedMoviesFragment
 import com.example.mv_ted.ui.view.main_fragment.MainFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.view.*
-import kotlin.with as with
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         initDrawer(toolbar)
     }
 
-    private fun initToolbar(): androidx.appcompat.widget.Toolbar = with(_binding) {
+    private fun initToolbar(): androidx.appcompat.widget.Toolbar {
         val toolbar = app_bar_main.toolbar
         setSupportActionBar(toolbar)
         return toolbar

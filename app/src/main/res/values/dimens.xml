@@ -4,7 +4,7 @@
     <dimen name="nav_header_margin_text_top">10dp</dimen>
     <dimen name="text_size_nav_header">30sp</dimen>
     <dimen name="date_text_size_detail_frgmnt">25sp</dimen>
-    <dimen name="date_text_marginTop_detail_frg">40dp</dimen>
+    <dimen name="date_text_marginTop_detail_frg">10dp</dimen>
     <dimen name="width_img_detail_frg">180dp</dimen>
     <dimen name="height_img_detail_frg">250dp</dimen>
     <dimen name="frame_margin_top_detail_frg">10dp</dimen>

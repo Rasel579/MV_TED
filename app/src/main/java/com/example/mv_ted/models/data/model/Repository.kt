@@ -1,5 +1,6 @@
 package com.example.mv_ted.models.data.model
 
+import com.example.mv_ted.models.data.model.rest.rest_mdbApi.Film
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieDTO
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieResultDTO
 import retrofit2.Callback
@@ -9,6 +10,7 @@ interface Repository {
     fun getDataFromServer(uri: URL) : MutableList<MovieResultDTO>?
     fun getDataFromServerRetrofit(callback : Callback<MovieDTO>)
     fun getDataFromServerRetrofitUpcoming(callback : Callback<MovieDTO>)
+    fun getDataFromServerAboutFilm(callback: Callback<Film>, movieId: String)
     fun getDataFromLocalStorage() : MutableList<Movie>
     fun getDataFromMovieAPI() : MutableList<Movie>
     fun getHistoryComments(movieId : String) : List<Comment>

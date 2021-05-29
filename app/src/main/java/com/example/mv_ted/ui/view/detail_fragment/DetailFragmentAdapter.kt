@@ -17,15 +17,11 @@ class DetailFragmentAdapter
         ItemDetailBinding
             .inflate(LayoutInflater.from(parent.context),parent, false ).root
         )
-
-
-
     override fun onBindViewHolder(holder: DetailsViewHolder, position: Int) {
         holder.bind(listOfComments[position])
     }
 
     override fun getItemCount(): Int = listOfComments.size
-
     fun setData(commentsList: List<Comment>) {
          listOfComments = commentsList
          notifyDataSetChanged()

@@ -21,7 +21,9 @@ android {
         Properties properties = new Properties()
         properties.load(project.rootProject.file('apikey.properties').newDataInputStream())
         def apiKey = properties.getProperty("movie_database_apikey", "")
+        def googleMapsApiKey = properties.getProperty("google_maps_apikey", "")
         it.buildConfigField "String", "MOVIE_DB_APIKEY", apiKey
+        it.buildConfigField "String", "GOOGLE_MAPS_APIKEY", googleMapsApiKey
     }
     buildTypes {
         release {
@@ -58,6 +60,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation  "androidx.room:room-runtime:2.3.0"
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     kapt  'androidx.room:room-compiler:2.3.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

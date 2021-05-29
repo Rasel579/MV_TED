@@ -57,3 +57,4 @@ apikey.properties
 
 
 /app/src/release/
+/app/src/release/res/values/

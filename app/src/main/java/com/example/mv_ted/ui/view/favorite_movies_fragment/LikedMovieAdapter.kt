@@ -14,8 +14,6 @@ class LikedMovieAdapter : RecyclerView.Adapter<LikedMovieAdapter.LikedMovieViewH
     private var listMovies : List<Movie> = listOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikedMovieViewHolder =
         LikedMovieViewHolder(ItemLikesBinding.inflate(LayoutInflater.from(parent.context), parent, false).root)
-
-
     override fun onBindViewHolder(holder: LikedMovieViewHolder, position: Int) {
         holder.bind(listMovies[position])
     }

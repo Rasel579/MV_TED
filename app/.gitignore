@@ -2,3 +2,6 @@
 .*
 .gradle
 .idea
+/release/
+/debug/
+/src/release/

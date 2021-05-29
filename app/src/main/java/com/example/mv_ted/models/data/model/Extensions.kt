@@ -10,7 +10,7 @@ import java.util.*
 val uriNow = URL("https://api.themoviedb.org/3/movie/popular")
 val uriUpComing = URL("https://api.themoviedb.org/3/movie/upcoming")
 const val imageUri = "https://image.tmdb.org/t/p/w500"
-const val uriRetroApi = "https://api.themoviedb.org/3/movie/"
+const val uriRetroApi = "https://api.themoviedb.org/3/"
 const val TAG = "After broadcasting"
 
 fun View.showSnackBar(message: String, length : Int){

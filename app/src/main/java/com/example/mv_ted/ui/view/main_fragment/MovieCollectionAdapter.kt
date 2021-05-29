@@ -38,7 +38,7 @@ class MovieCollectionAdapter(
 
    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var titleTextMovie: TextView = let { _binding.titleView }
-        var imageViewMovie: AppCompatImageView = let { _binding.ImageView}
+        private var imageViewMovie: AppCompatImageView = let { _binding.ImageView}
         private var dateUpcomingMovie: TextView = let { _binding.dateUpcoming }
 
         @RequiresApi(Build.VERSION_CODES.M)

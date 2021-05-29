@@ -4,6 +4,7 @@ import com.example.mv_ted.models.data.model.database.comment_db.CommentDataBase
 import com.example.mv_ted.models.data.model.database.comment_db.CommentEntity
 import com.example.mv_ted.models.data.model.database.liked_movie_db.LikesMoviesDatabase
 import com.example.mv_ted.models.data.model.database.liked_movie_db.LikesMoviesEntity
+import com.example.mv_ted.models.data.model.rest.rest_mdbApi.Film
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieDTO
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieResultDTO
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MoviesLoader
@@ -19,6 +20,10 @@ class RepositoryImpl : Repository {
 
     override fun getDataFromServerRetrofitUpcoming(callback: Callback<MovieDTO>) {
        BackendRepo.api.getMoviesListUpcoming().enqueue(callback)
+    }
+
+    override fun getDataFromServerAboutFilm(callback: Callback<Film>, movieId: String) {
+        BackendRepo.api.getMovieById(movieId).enqueue(callback)
     }
 
     override fun getDataFromLocalStorage() = getDataMovie()
