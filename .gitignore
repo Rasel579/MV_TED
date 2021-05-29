@@ -56,3 +56,4 @@ apikey.properties
 *.p12
 
 
+/app/src/release/
