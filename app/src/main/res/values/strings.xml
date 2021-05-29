@@ -31,4 +31,6 @@
     <string name="Start_position">Start position</string>
     <string name="go_to_map_menu">Go to Map</string>
     <string name="like_description_img">Like</string>
+    <string name="Title_alert_geofence">Geofence</string>
+    <string name="mesg_alert_geofence">The Cinema near You</string>
 </resources>

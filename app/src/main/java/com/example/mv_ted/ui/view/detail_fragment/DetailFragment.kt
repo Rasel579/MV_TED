@@ -106,7 +106,7 @@ class DetailFragment : Fragment() {
                val manger = activity?.supportFragmentManager
                 manger?.let {
                     val bundle = Bundle().apply {
-                        putParcelable(MapsFragment.Movie, movie)
+                        putParcelable(MapsFragment.MOVIE, movie)
                     }
                     manger.beginTransaction()
                         .replace(R.id.content_main_frame, MapsFragment.newInstance(bundle))

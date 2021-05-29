@@ -30,6 +30,7 @@
         </activity>
 
         <service android:name=".models.data.model.rest.services_and_broadcastReceivers.DetailsServices" />
+        <service android:name=".expirements.GeofenceService"/>
 
         <receiver android:name=".models.data.model.rest.services_and_broadcastReceivers.MainBroadcastReceiver">
             <intent-filter>
