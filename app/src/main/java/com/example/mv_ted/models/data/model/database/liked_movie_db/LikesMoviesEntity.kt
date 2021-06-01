@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class LikesMoviesEntity(
     @PrimaryKey(autoGenerate = true)
     val id : Int,
-    val title: String,
-    val image: String,
-    val date: String
+    val title: String?,
+    val image: String?,
+    val date: String?
 )

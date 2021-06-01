@@ -21,8 +21,8 @@ import com.squareup.picasso.Picasso
 
 class DetailFragment : Fragment() {
     private lateinit var _binding : FragmentDetailBinding
-    private lateinit  var movie : MovieResultDTO
-    private var comments : MutableList<Comment>?= null
+    private var movie : MovieResultDTO ?= null
+    private var comments : MutableList<Comment> ?=  null
     private var likeImg = R.drawable.ic_baseline_tag_faces_24
     private val adapter: DetailFragmentAdapter by lazy { DetailFragmentAdapter() }
     private val viewModel : DetailViewModel by lazy {
@@ -40,14 +40,15 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)= with(_binding) {
         super.onViewCreated(view, savedInstanceState)
-        if (arguments != null){
-            movie = arguments?.getParcelable(MOVIE_DATA)!!
+        arguments?.let {
+            movie = arguments?.getParcelable(MOVIE_DATA)
         }
-        movieOverview.text = movie.overview
-        movieIdName.text = movie.originalTitle
-        movieIdDate.text = movie.releaseDate
+
+        movieOverview.text = movie?.overview
+        movieIdName.text = movie?.originalTitle
+        movieIdDate.text = movie?.releaseDate
         Picasso.get()
-            .load(imageUri + movie.posterPath)
+            .load(imageUri + movie?.posterPath)
             .fit()
             .into(movieImage)
         like.setOnClickListener {
@@ -57,22 +58,31 @@ class DetailFragment : Fragment() {
                 R.drawable.ic_baseline_tag_faces_24
             }
             like.setImageResource(likeImg)
-            viewModel.saveLikesMovie(Movie(movie.originalTitle,movie.releaseDate, movie.posterPath))
+            viewModel.saveLikesMovie(Movie(movie?.originalTitle,  movie?.releaseDate, movie?.posterPath))
         }
 
         viewModel.detailLiveData.observe(viewLifecycleOwner, {
             renderData(it)
         })
-        movie.id.let { viewModel.getAllCommentsByMovie(it) }
+        movie?.id.let {
+            if (it != null) {
+                viewModel.getAllCommentsByMovie(it)
+            }
+        }
 
 
         sentToDB.setOnClickListener {
-            if(inputComments.text != null) movie.id.let{ id -> viewModel
-                .saveEntity(inputComments.text.toString(), id) }
+            if(inputComments.text != null) movie?.id.let{ id ->
+                if (id != null) {
+                    viewModel
+                        .saveEntity(inputComments.text.toString(), id)
+                }
+                inputComments.setText("")
+            }
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
             comments?.add(Comment(0,"0", inputComments.text.toString()))
-            viewModel.getAllCommentsByMovie(movie.id)
+            movie?.id?.let { it -> viewModel.getAllCommentsByMovie(it) }
         }
     }
 
