@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "136424532679",
+    "project_id": "mv-ted",
+    "storage_bucket": "mv-ted.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136424532679:android:09d88f3b3a83c47606ace2",
+        "android_client_info": {
+          "package_name": "com.example.mv_ted"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136424532679-hnbm5ts5p181u1dtirnl26mfh3nucujo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu-gXOD0kbKMjrdxJP9NK4tg6bgrCImKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136424532679-hnbm5ts5p181u1dtirnl26mfh3nucujo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

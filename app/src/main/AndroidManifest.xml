@@ -29,10 +29,19 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".models.data.model.rest.services_and_broadcastReceivers.DetailsServices" />
+        <service android:name="com.example.mv_ted.services_and_broadcastReceivers.DetailsServices" />
         <service android:name=".expirements.GeofenceService"/>
+        <service android:name=".services_and_broadcastReceivers.FCMService"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
-        <receiver android:name=".models.data.model.rest.services_and_broadcastReceivers.MainBroadcastReceiver">
+        <receiver android:name="com.example.mv_ted.services_and_broadcastReceivers.MainBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
             </intent-filter>
