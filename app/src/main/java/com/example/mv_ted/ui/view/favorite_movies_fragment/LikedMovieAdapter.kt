@@ -29,6 +29,7 @@ class LikedMovieAdapter : RecyclerView.Adapter<LikedMovieAdapter.LikedMovieViewH
             if(layoutPosition != RecyclerView.NO_POSITION){
                  movie_id_date_likes.text = movie.date
                  movie_id_name_likes.text = movie.title
+                 movie_description_likes.text = movie.description
                 Picasso.get()
                     .load(imageUri + movie.image)
                     .into(movie_image_like)

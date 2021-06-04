@@ -32,6 +32,7 @@ class MovieCollectionAdapter(
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         listMovies?.get(position)?.let { holder.setData(it) }
+        holder.setIsRecyclable(false)
     }
 
     override fun getItemCount(): Int = listMovies?.size ?: 0

@@ -21,8 +21,8 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.mv_ted.R
 import com.example.mv_ted.databinding.FragmentMapsBinding
-import com.example.mv_ted.expirements.GeofenceService
 import com.example.mv_ted.models.data.model.rest.rest_mdbApi.MovieResultDTO
+import com.example.mv_ted.services_and_broadcastReceivers.GeofenceRequestReceiver
 import com.example.mv_ted.view_model.AppState
 import com.example.mv_ted.view_model.MapsViewModel
 import com.google.android.gms.common.api.GoogleApiClient
@@ -44,7 +44,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
     private lateinit var map : GoogleMap
     private lateinit var googleClient : GoogleApiClient
     private lateinit var geofenceClient : GeofencingClient
-    private lateinit var geofence :Geofence
+    private var geofence :Geofence? = null
     private val markers: ArrayList<Marker> = ArrayList()
     private val viewModel : MapsViewModel by lazy { 
         ViewModelProvider(this).get(MapsViewModel::class.java)
@@ -113,7 +113,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
                try {
                    val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, COUNT_ADDRESSES_FROM_GEOCODER)
                    textAddress.post{
-                       textAddress.text = address[0].getAddressLine(0)
+                       textAddress.text = address.first().getAddressLine(0)
                    }
 
                } catch (e: Exception) {
@@ -154,7 +154,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
     private fun renderData(it: AppState?) {
         when(it){
             is AppState.SuccessFilmCountry ->{
-                Log.e("Frg", it.country)
+                Log.i(TAG_FRG, it.country)
                 val geocoder = Geocoder(requireContext())
                 Thread{
                     try {
@@ -170,7 +170,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
     }
 
     private fun goToAddress(view: View?, address: List<Address>, searchText: String) {
-           val location = LatLng(address[0].latitude, address[0].longitude)
+           val location = LatLng(address.first().latitude, address.first().longitude)
            view?.post {
                 setMarker(location, searchText)
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
@@ -203,7 +203,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
     ) {
         when(requestCode){
             REQUEST_CODE ->{
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED){
                     map.isMyLocationEnabled = true
                 }
             }
@@ -213,33 +213,35 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
     @SuppressLint("MissingPermission")
     private fun initGeofence() {
         geofenceClient = LocationServices.getGeofencingClient(requireContext())
-        geofence = CINEMA[cinemaGrandPlace]?.get(0)?.let {
-            Geofence.Builder().setRequestId(GEOFENCE_REQUEST_ID)
-                .setCircularRegion(
-                    it,
-                    CINEMA[cinemaGrandPlace]?.get(1)!!,
-                    RADIUS_GEOFENCE_REGION)
-                .setCircularRegion(CINEMA[cinema7d]?.get(0)!!,
-                    CINEMA[cinema7d]?.get(1)!!,
-                    RADIUS_GEOFENCE_REGION)
-                .setCircularRegion(CINEMA[cinemaHostel]?.get(0)!!,
-                    CINEMA[cinemaHostel]?.get(1)!!,
-                    RADIUS_GEOFENCE_REGION)
-                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
-                .setExpirationDuration(GEOFENCE_TIME)
-                .build()
-        }!!
+        geofence = CINEMA[cinema7d]?.get(0)?.let { latitude ->
+            CINEMA[cinema7d]?.get(1)?.let { longitude  ->
+                Geofence.Builder().setRequestId(GEOFENCE_REQUEST_ID)
+                    .setCircularRegion(
+                        latitude,
+                        longitude,
+                        RADIUS_GEOFENCE_REGION)
+                    .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+                    .setExpirationDuration(GEOFENCE_TIME)
+                    .build()
+            }
+        }
         val geofenceRequest = GeofencingRequest.Builder()
             .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
             .addGeofence(geofence)
             .build()
-        val geoService = Intent(context, GeofenceService :: class.java)
+        val geoService = Intent(context, GeofenceRequestReceiver :: class.java)
         val pendingIntent = PendingIntent
-            .getService(context, 0, geoService, PendingIntent.FLAG_UPDATE_CURRENT)
-        geofenceClient.addGeofences(geofenceRequest, pendingIntent).addOnCompleteListener{
-                AlertDialog.Builder(context).setTitle(getString(R.string.Title_alert_geofence)).setMessage(getString(
-                                    R.string.mesg_alert_geofence)).show()
+            .getBroadcast(context, 0, geoService, PendingIntent.FLAG_UPDATE_CURRENT)
+        geofenceClient.addGeofences(geofenceRequest, pendingIntent).run {
+            addOnSuccessListener {
+                Log.i(TAG, getString(R.string.log_msg_geofence_add))
             }
+            addOnFailureListener{
+                it.printStackTrace()
+                Log.e(TAG, it.message.toString())
+            }
+        }
+
 
     }
     override fun onConnected(bundle: Bundle?) {
@@ -251,17 +253,19 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
 
     companion object {
         const val MOVIE = "movie"
-        const val REQUEST_CODE = 89
-        const val GEOFENCE_TIME = 800000L
-        const val RADIUS_GEOFENCE_REGION = 1000f
+        private const val REQUEST_CODE = 89
+        private const val GEOFENCE_TIME = 800000L
+        private const val RADIUS_GEOFENCE_REGION = 100f
         private val INITIAL_PLACE = LatLng(60.43,50.34)
         private const val cinemaGrandPlace = "Cinema grand place"
         private const val cinemaHostel = "Cinema hostel"
         private const val cinema7d = "Cinema 7d"
         private const val POLYLINE_WIDTH = 5f
         private const val COUNT_ADDRESSES_FROM_GEOCODER = 1
-        private const val GEOFENCE_REQUEST_ID = "1"
-         val CINEMA = mapOf(
+        private const val GEOFENCE_REQUEST_ID = "Cinema_7d"
+        private const val TAG = "Geofence_On_GoogleMap"
+        private const val TAG_FRG = "FRAGMENT_COUNTRY"
+         val CINEMA : Map <String, Array<Double>> = mapOf(
              Pair(cinemaGrandPlace, arrayOf(59.9361,30.3336)),
              Pair(cinemaHostel, arrayOf(59.9225,30.3326)),
              Pair(cinema7d, arrayOf(59.9189,30.3389))

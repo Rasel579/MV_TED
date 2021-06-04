@@ -70,11 +70,26 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.setting_item_menu -> {
-                    drawerLayout.closeDrawer(GravityCompat.START)
                     Toast.makeText(this, getString(R.string.NavigationFDawerText), Toast.LENGTH_SHORT).show()
+                    true
                 }
+                R.id.favorite_item_menu -> {
+                    navigationFragment(LikedMoviesFragment.newInstance())
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.main_frame_menu -> {
+                    navigationFragment(MainFragment.newInstance())
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.to_contacts -> {
+                    navigationFragment(ContactProviderFragment.newInstance())
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                else -> false
             }
-           false
         }
     }
 

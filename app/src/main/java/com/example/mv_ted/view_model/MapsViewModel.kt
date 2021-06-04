@@ -21,7 +21,7 @@ class MapsViewModel (
                     liveData.postValue(
                         response.body()?.productionCompanies?.let {
                             AppState.SuccessFilmCountry(
-                                it[0].name
+                                it.first().name
                             )
                         }
                     )

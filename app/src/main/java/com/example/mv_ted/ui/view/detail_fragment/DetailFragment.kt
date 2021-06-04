@@ -58,7 +58,7 @@ class DetailFragment : Fragment() {
                 R.drawable.ic_baseline_tag_faces_24
             }
             like.setImageResource(likeImg)
-            viewModel.saveLikesMovie(Movie(movie?.originalTitle,  movie?.releaseDate, movie?.posterPath))
+            viewModel.saveLikesMovie(Movie(movie?.originalTitle,  movie?.releaseDate, movie?.posterPath, movie?.overview))
         }
 
         viewModel.detailLiveData.observe(viewLifecycleOwner, {

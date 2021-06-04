@@ -9,7 +9,8 @@
     android:layout_marginStart="@dimen/card_view_margin_start"
     app:cardCornerRadius="@dimen/card_view_corner_radius"
     app:cardElevation="@dimen/card_view_card_elevation"
-    android:filterTouchesWhenObscured="true">
+    android:filterTouchesWhenObscured="true"
+    xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -2,12 +2,12 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/movie_image_like"
@@ -45,6 +45,17 @@
             app:layout_constraintStart_toEndOf="@id/movie_image_like"
             app:layout_constraintTop_toTopOf="@+id/movie_image_like"
             app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/movie_description_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textSize="8sp"
+            android:maxEms="10"
+            app:layout_constraintStart_toEndOf="@id/movie_image_like"
+            app:layout_constraintTop_toBottomOf="@id/movie_id_name_likes"
+            app:layout_constraintBottom_toTopOf="@id/movie_id_date_likes"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/movie_id_date_likes"

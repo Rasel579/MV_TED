@@ -27,17 +27,17 @@ fun View.showSnackBar(message: String, length: Int, actionText: String, viewMode
 //fake data
 fun getDataMovie(): MutableList<Movie> {
     return mutableListOf(
-        Movie("Justice League", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", ""),
-        Movie("Movie_Some", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.movie_poster"),
-        Movie("Avengers", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers"),
-        Movie("Kool", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers"),
-        Movie("Black Widow", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers"),
-        Movie("Mortal Kombat", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers"),
-        Movie("Scary Movie", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers"),
-        Movie("Spiral", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers"),
-        Movie("US", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers"),
-        Movie("Wonder Woman", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers"),
-        Movie("X - Mens", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers")
+        Movie("Justice League", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "", ""),
+        Movie("Movie_Some", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.movie_poster",""),
+        Movie("Avengers", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers",""),
+        Movie("Kool", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers",""),
+        Movie("Black Widow", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers",""),
+        Movie("Mortal Kombat", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers",""),
+        Movie("Scary Movie", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers",""),
+        Movie("Spiral", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers",""),
+        Movie("US", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers",""),
+        Movie("Wonder Woman", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers",""),
+        Movie("X - Mens", "${Calendar.getInstance()[Calendar.YEAR]} ${Calendar.getInstance()[Calendar.MONTH]} ${Calendar.getInstance()[Calendar.DAY_OF_MONTH]}", "R.drawable.avengers","")
     )
 }
 

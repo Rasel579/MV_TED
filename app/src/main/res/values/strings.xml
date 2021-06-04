@@ -33,4 +33,5 @@
     <string name="like_description_img">Like</string>
     <string name="Title_alert_geofence">Geofence</string>
     <string name="mesg_alert_geofence">The Cinema near You</string>
+    <string name="log_msg_geofence_add">geofence_added</string>
 </resources>

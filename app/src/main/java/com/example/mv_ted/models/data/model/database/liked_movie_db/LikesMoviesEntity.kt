@@ -9,5 +9,6 @@ data class LikesMoviesEntity(
     val id : Int,
     val title: String?,
     val image: String?,
-    val date: String?
+    val date: String?,
+    val description: String?
 )

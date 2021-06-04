@@ -49,7 +49,7 @@ class RepositoryImpl : Repository {
 
     private fun convertLikesEntityToMovie(likesMovies: List<LikesMoviesEntity>) =
         likesMovies.map {
-            Movie(it.title, it.date, it.image)
+            Movie(it.title, it.date, it.image, it.description)
         }
 
 
@@ -59,7 +59,7 @@ class RepositoryImpl : Repository {
     }
 
     private fun convertMovieToLikesEntity(movie: Movie): LikesMoviesEntity =
-        LikesMoviesEntity(0,movie.title, movie.image, movie.date)
+        LikesMoviesEntity(0,movie.title, movie.image, movie.date, movie.description)
 
 }
 
