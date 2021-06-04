@@ -14,8 +14,6 @@ class LikedMovieAdapter : RecyclerView.Adapter<LikedMovieAdapter.LikedMovieViewH
     private var listMovies : List<Movie> = listOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikedMovieViewHolder =
         LikedMovieViewHolder(ItemLikesBinding.inflate(LayoutInflater.from(parent.context), parent, false).root)
-
-
     override fun onBindViewHolder(holder: LikedMovieViewHolder, position: Int) {
         holder.bind(listMovies[position])
     }
@@ -31,6 +29,7 @@ class LikedMovieAdapter : RecyclerView.Adapter<LikedMovieAdapter.LikedMovieViewH
             if(layoutPosition != RecyclerView.NO_POSITION){
                  movie_id_date_likes.text = movie.date
                  movie_id_name_likes.text = movie.title
+                 movie_description_likes.text = movie.description
                 Picasso.get()
                     .load(imageUri + movie.image)
                     .into(movie_image_like)

@@ -32,13 +32,14 @@ class MovieCollectionAdapter(
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         listMovies?.get(position)?.let { holder.setData(it) }
+        holder.setIsRecyclable(false)
     }
 
     override fun getItemCount(): Int = listMovies?.size ?: 0
 
    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var titleTextMovie: TextView = let { _binding.titleView }
-        var imageViewMovie: AppCompatImageView = let { _binding.ImageView}
+        private var imageViewMovie: AppCompatImageView = let { _binding.ImageView}
         private var dateUpcomingMovie: TextView = let { _binding.dateUpcoming }
 
         @RequiresApi(Build.VERSION_CODES.M)

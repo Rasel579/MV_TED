@@ -16,12 +16,11 @@ import androidx.fragment.app.Fragment
 import com.example.mv_ted.R
 import com.example.mv_ted.databinding.ActivityMainBinding
 import com.example.mv_ted.expirements.ContactProviderFragment
-import com.example.mv_ted.models.data.model.rest.services_and_broadcastReceivers.MainBroadcastReceiver
+import com.example.mv_ted.services_and_broadcastReceivers.MainBroadcastReceiver
 import com.example.mv_ted.ui.view.favorite_movies_fragment.LikedMoviesFragment
 import com.example.mv_ted.ui.view.main_fragment.MainFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.view.*
-import kotlin.with as with
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         initDrawer(toolbar)
     }
 
-    private fun initToolbar(): androidx.appcompat.widget.Toolbar = with(_binding) {
+    private fun initToolbar(): androidx.appcompat.widget.Toolbar {
         val toolbar = app_bar_main.toolbar
         setSupportActionBar(toolbar)
         return toolbar
@@ -71,11 +70,26 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.setting_item_menu -> {
-                    drawerLayout.closeDrawer(GravityCompat.START)
                     Toast.makeText(this, getString(R.string.NavigationFDawerText), Toast.LENGTH_SHORT).show()
+                    true
                 }
+                R.id.favorite_item_menu -> {
+                    navigationFragment(LikedMoviesFragment.newInstance())
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.main_frame_menu -> {
+                    navigationFragment(MainFragment.newInstance())
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.to_contacts -> {
+                    navigationFragment(ContactProviderFragment.newInstance())
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                else -> false
             }
-           false
         }
     }
 

@@ -10,4 +10,5 @@ sealed class AppState{
     object Loading: AppState()
     data class SuccessDetailsFrg(val commentsList: List<Comment>) : AppState()
     data class SuccessLike(val likedMoviesList: List<Movie>) : AppState()
+    data class SuccessFilmCountry(val country: String) : AppState()
 }

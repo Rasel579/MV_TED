@@ -4,7 +4,7 @@
     <item
         android:id="@+id/changeContent"
         android:title="@string/hide_adult_movies_menu_title"
-        android:orderInCategory="14"
-        app:showAsAction="always"
+        android:orderInCategory="35"
+        app:showAsAction="never"
         android:icon="@android:drawable/btn_star"/>
 </menu>

@@ -3,6 +3,7 @@ package com.example.mv_ted.models.data.model.rest.retrofit_rest
 import com.example.mv_ted.BuildConfig
 import com.example.mv_ted.models.data.model.uriNow
 import com.example.mv_ted.models.data.model.uriRetroApi
+import okhttp3.Dns
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -11,9 +12,10 @@ object APIUtils {
    fun getOkHTTPBuilderWithHeaders() : OkHttpClient {
      val httpClient = OkHttpClient.Builder()
       httpClient.apply {
-          connectTimeout(10, TimeUnit.SECONDS)
-          readTimeout(10, TimeUnit.SECONDS)
-          writeTimeout(10, TimeUnit.SECONDS)
+          dns(Dns.SYSTEM)
+          connectTimeout(20, TimeUnit.SECONDS)
+          readTimeout(20, TimeUnit.SECONDS)
+          writeTimeout(20, TimeUnit.SECONDS)
       }
       httpClient.addInterceptor{ chain ->
          val original = chain.request()

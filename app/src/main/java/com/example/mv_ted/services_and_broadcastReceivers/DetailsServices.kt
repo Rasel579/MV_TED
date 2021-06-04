@@ -1,4 +1,4 @@
-package com.example.mv_ted.models.data.model.rest.services_and_broadcastReceivers
+package com.example.mv_ted.services_and_broadcastReceivers
 
 import android.app.IntentService
 import android.content.Intent

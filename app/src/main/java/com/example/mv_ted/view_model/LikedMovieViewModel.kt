@@ -2,7 +2,6 @@ package com.example.mv_ted.view_model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mv_ted.models.data.model.Movie
 import com.example.mv_ted.models.data.model.Repository
 import com.example.mv_ted.models.data.model.RepositoryImpl
 import kotlinx.coroutines.CoroutineScope

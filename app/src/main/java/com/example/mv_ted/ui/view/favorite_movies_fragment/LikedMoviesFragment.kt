@@ -17,8 +17,6 @@ class LikedMoviesFragment : Fragment() {
     private val viewModel :LikedMovieViewModel by lazy {
         ViewModelProvider(this).get(LikedMovieViewModel ::class.java)
     }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +24,6 @@ class LikedMoviesFragment : Fragment() {
         binding = FragmentLikedMoviesBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.liveData.observe(viewLifecycleOwner, {render(it)})
@@ -42,7 +39,6 @@ class LikedMoviesFragment : Fragment() {
         }
 
     }
-
     private fun initRecycleView()= with(binding) {
         val recyclerView = likesMoviesRecView
         recyclerView.adapter = adapter

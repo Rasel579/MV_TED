@@ -122,7 +122,7 @@ class MainFragment : Fragment() {
                     manager.beginTransaction()
                         .replace(R.id.content_main_frame, DetailFragment.newInstance(bundle))
                         .addToBackStack("")
-                        .commitAllowingStateLoss()
+                        .commit()
                 }
             }
         })
