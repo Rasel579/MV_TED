@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.mv_ted">
+    package="com.movieapp.mv_ted">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name=".App"
+        android:name="com.movieapp.mv_ted.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <receiver
-            android:name=".services_and_broadcastReceivers.GeofenceRequestReceiver"
+            android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.GeofenceRequestReceiver"
             android:enabled="true"
             android:exported="true" />
 
@@ -28,7 +28,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.view.MainActivity">
+        <activity android:name="com.movieapp.mv_ted.ui.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,9 +36,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".services_and_broadcastReceivers.DetailsServices" />
+        <service android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.DetailsServices" />
         <service
-            android:name=".services_and_broadcastReceivers.FCMService"
+            android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.FCMService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -47,7 +47,7 @@
         </service>
 
         <receiver
-            android:name=".services_and_broadcastReceivers.MainBroadcastReceiver"
+            android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.MainBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

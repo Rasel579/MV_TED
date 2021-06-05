@@ -1,3 +1,4 @@
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -7,25 +8,42 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\rasel\\Documents\\key_Mv_Ted_app\\key_movie_app.jks')
+            storePassword 'gangstar'
+            keyAlias 'key_movie_app'
+            keyPassword 'gangstar'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.mv_ted"
+        applicationId "com.movieapp.mv_ted"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
     buildTypes.each{
         Properties properties = new Properties()
         properties.load(project.rootProject.file('apikey.properties').newDataInputStream())
         def apiKey = properties.getProperty("movie_database_apikey", "")
         def googleMapsApiKey = properties.getProperty("google_maps_apikey", "")
+        def keyStore = properties.getProperty("storeFile", "")
+        def storePassword = properties.getProperty("storePassword", "")
+        def keyAlias = properties.getProperty("keyAlias", "")
+        def keyPassword = properties.getProperty("keyPassword", "")
         it.buildConfigField "String", "MOVIE_DB_APIKEY", apiKey
         it.buildConfigField "String", "GOOGLE_MAPS_APIKEY", googleMapsApiKey
+        it.buildConfigField "String", "KEY_STORE", keyStore
+        it.buildConfigField "String", "STORE_PASSWORD", storePassword
+        it.buildConfigField "String", "KEY_ALIAS", keyAlias
+        it.buildConfigField "String", "KEY_PASSWORD", keyPassword
     }
     buildTypes {
         release {
