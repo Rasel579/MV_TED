@@ -20,5 +20,5 @@
         android:id="@+id/content_main_frame"
         layout="@layout/content_main"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".ui.view.MainActivity"/>
+        tools:context=".presentation.MainActivity"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
