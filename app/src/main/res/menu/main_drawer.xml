@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/main_frame_menu"
+        android:orderInCategory="10"
+        android:title="@string/main_frame_item_menu"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/favorite_item_menu"
+        android:title="@string/favorite_movies_item_menu"
+        android:orderInCategory="20"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/to_contacts"
+        android:title="@string/go_to_contacts"
+        android:orderInCategory="150"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/search_menu"
+        android:title="@string/search_movie_item_menu"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView"/>
+
+</menu>

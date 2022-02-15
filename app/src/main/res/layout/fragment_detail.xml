@@ -5,42 +5,60 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="@dimen/frame_margin_top_detail_frg"
-    tools:context=".ui.view.DetailFragment">
+    tools:context=".ui.view.detail_fragment.DetailFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/movie_image"
             android:layout_width="@dimen/width_img_detail_frg"
             android:layout_height="@dimen/height_img_detail_frg"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/movie_id_name"
             app:layout_constraintBottom_toBottomOf="@id/movie_id_date"
+            app:layout_constraintEnd_toEndOf="@id/movie_id_name"
             app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.36"
             />
-        <TextView
-            android:id="@+id/movie_id_name"
-            android:layout_gravity="end"
+        <ImageView
+            android:id="@+id/like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/movie_image"
-            app:layout_constraintBottom_toBottomOf="@id/movie_overview"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintTop_toTopOf="@+id/movie_image"
+            app:layout_constraintStart_toStartOf="@id/movie_image"
+            app:layout_constraintEnd_toEndOf="@id/movie_image"
+            app:layout_constraintBottom_toBottomOf="@id/movie_image"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintVertical_bias="1"
+            android:src="@drawable/ic_baseline_tag_faces_24"
+            android:contentDescription="TODO" />
+        <TextView
+            android:id="@+id/movie_id_name"
+            android:layout_width="@dimen/movie_title_width_detail_frg"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:textSize="@dimen/movie_title_text_size_detail_frg"
             android:textStyle="bold"
-            />
+            app:layout_constraintBottom_toBottomOf="@id/movie_overview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@id/movie_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_editor_absoluteX="100dp" />
+
         <TextView
             android:id="@+id/movie_overview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/card_view_margin_top"
             app:layout_constraintBottom_toTopOf="@+id/movie_id_date"
-            app:layout_constraintTop_toBottomOf="@id/movie_id_name"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movie_image" />
 
         <TextView
             android:id="@+id/movie_id_date"
@@ -48,11 +66,46 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/date_text_marginTop_detail_frg"
             android:textSize="@dimen/date_text_size_detail_frgmnt"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/MovieComments"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.8"
-            app:layout_constraintTop_toBottomOf="@id/movie_image" />
+            app:layout_constraintTop_toBottomOf="@id/movie_overview"
+            app:layout_constraintVertical_bias="0.9" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/MovieComments"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/heght_of_recycle_view_comments"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/input_comments"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_id_date"
+            tools:listitem="@layout/item_detail" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_comment"
+            app:layout_constraintBottom_toBottomOf="@id/sentToDB"
+            app:layout_constraintEnd_toStartOf="@id/sentToDB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/sentToDB"
+            app:layout_constraintVertical_bias="1" />
+
+        <Button
+            android:id="@+id/sentToDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:hint="Send"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/input_comments"
+            app:layout_constraintTop_toBottomOf="@id/MovieComments"
+            app:layout_constraintVertical_bias="1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

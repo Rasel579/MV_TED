@@ -1,29 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mv_ted">
-    <uses-permission android:name="android.permission.INTERNET"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.movieapp.mv_ted">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name="com.movieapp.mv_ted.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MV_TED.NoActionBar">
-        <activity android:name=".ui.view.MainActivity">
+        android:theme="@style/Theme.MV_TED.NoActionBar"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <receiver
+            android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.GeofenceRequestReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity android:name="com.movieapp.mv_ted.ui.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".models.data.model.services_and_broadcastReceivers.DetailsServices"/>
-        <receiver android:name=".models.data.model.services_and_broadcastReceivers.MainBroadcastReceiver">
+
+        <service android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.DetailsServices" />
+        <service
+            android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.FCMService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.MainBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

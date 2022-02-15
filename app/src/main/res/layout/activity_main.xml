@@ -15,7 +15,7 @@
        android:layout_gravity = "start"
        android:fitsSystemWindows="true"
        app:headerLayout="@layout/nav_header_main"
-       app:menu="@menu/main"
+       app:menu="@menu/main_drawer"
        />
     <include
         android:id="@+id/app_bar_main"
