@@ -1,9 +1,9 @@
 package com.movieapp.mv_ted.models.data.model.rest.rest_mdbApi
 
 import android.os.Parcelable
+import androidx.versionedparcelable.ParcelField
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
-
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class MovieResultDTO(
@@ -15,4 +15,4 @@ data class MovieResultDTO(
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("poster_path")
-    val posterPath: String) : Parcelable
+    val posterPath: String): Parcelable
