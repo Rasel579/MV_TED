@@ -1,38 +1,44 @@
 package com.movieapp.mv_ted.ui.view.favorite_movies_fragment
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.movieapp.mv_ted.databinding.ItemLikesBinding
 import com.movieapp.mv_ted.models.data.model.Movie
 import com.movieapp.mv_ted.models.data.model.imageUri
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_likes.view.*
 
-class LikedMovieAdapter : RecyclerView.Adapter<LikedMovieAdapter.LikedMovieViewHolder>(){
-    private var listMovies : List<Movie> = listOf()
+class LikedMovieAdapter : RecyclerView.Adapter<LikedMovieAdapter.LikedMovieViewHolder>() {
+    private var listMovies: List<Movie> = listOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikedMovieViewHolder =
-        LikedMovieViewHolder(ItemLikesBinding.inflate(LayoutInflater.from(parent.context), parent, false).root)
+        LikedMovieViewHolder(
+            ItemLikesBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+
     override fun onBindViewHolder(holder: LikedMovieViewHolder, position: Int) {
         holder.bind(listMovies[position])
     }
 
     override fun getItemCount(): Int = listMovies.size
-    fun setData(listLikedMovies : List<Movie>){
+    fun setData(listLikedMovies: List<Movie>) {
         listMovies = listLikedMovies
         notifyDataSetChanged()
     }
 
-    inner class LikedMovieViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        fun bind(movie: Movie)= with(itemView) {
-            if(layoutPosition != RecyclerView.NO_POSITION){
-                 movie_id_date_likes.text = movie.date
-                 movie_id_name_likes.text = movie.title
-                 movie_description_likes.text = movie.description
+    inner class LikedMovieViewHolder(private val binding: ItemLikesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(movie: Movie) = with(binding) {
+            if (layoutPosition != RecyclerView.NO_POSITION) {
+                movieIdDateLikes.text = movie.date
+                movieIdNameLikes.text = movie.title
+                movieDescriptionLikes.text = movie.description
                 Picasso.get()
                     .load(imageUri + movie.image)
-                    .into(movie_image_like)
+                    .into(movieImageLike)
             }
 
         }

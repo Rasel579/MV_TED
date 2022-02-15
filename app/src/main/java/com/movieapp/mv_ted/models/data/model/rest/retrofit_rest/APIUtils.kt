@@ -20,7 +20,7 @@ object APIUtils {
          val original = chain.request()
          val request = original.newBuilder()
             .header("Authorization", BuildConfig.MOVIE_DB_APIKEY)
-            .method(original.method(), original.body())
+            .method(original.method, original.body)
             .build()
          chain.proceed(request)
       }

@@ -1,4 +1,3 @@
-@file:Suppress("DEPRECATION")
 
 package com.movieapp.mv_ted.ui.view.google_map
 
@@ -35,9 +34,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import kotlinx.android.synthetic.main.fragment_maps.*
 
-@Suppress("DEPRECATION")
 class MapsFragment : Fragment(), ConnectionCallbacks {
     private var binding: FragmentMapsBinding?= null
     private lateinit var map : GoogleMap
@@ -45,7 +42,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
     private lateinit var geofenceClient : GeofencingClient
     private var geofence :Geofence? = null
     private val markers: ArrayList<Marker> = ArrayList()
-    private val viewModel : MapsViewModel by lazy { 
+    private val viewModel : MapsViewModel by lazy {
         ViewModelProvider(this).get(MapsViewModel::class.java)
     }
     @SuppressLint("MissingPermission")
@@ -61,7 +58,11 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
         }
         val initialPlace = INITIAL_PLACE
         val marker = googleMap.addMarker(MarkerOptions().position(initialPlace).title(getString(R.string.Start_position)))
-        marker.let { markers.add(it)}
+        marker.let {
+            if (it != null) {
+                markers.add(it)
+            }
+        }
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(initialPlace))
         googleMap.setOnMapLongClickListener {latLng ->
                 getAddressAsync(latLng)
@@ -90,9 +91,9 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapsBinding.bind(inflater.inflate(R.layout.fragment_maps, container, false))
-        viewModel.liveData.observe(viewLifecycleOwner, {
+        viewModel.liveData.observe(viewLifecycleOwner) {
             renderData(it)
-        })
+        }
         val movie : MovieResultDTO? = arguments?.getParcelable(MOVIE)
         movie?.id?.let { viewModel.getCountryOfFilm(it) }
         return binding?.root
@@ -111,8 +112,8 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
            Thread {
                try {
                    val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, COUNT_ADDRESSES_FROM_GEOCODER)
-                   textAddress.post{
-                       textAddress.text = address.first().getAddressLine(0)
+                   binding?.textAddress?.post{
+                       binding!!.textAddress.text = address.first().getAddressLine(0)
                    }
 
                } catch (e: Exception) {
@@ -136,9 +137,9 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
         }
     }
     private fun initSearchByAddress(){
-          btnSearch.setOnClickListener{
+          binding?.btnSearch?.setOnClickListener{
             val geoCoder = Geocoder(it.context)
-            val searchText = searchAddress.text.toString()
+            val searchText = binding?.searchAddress?.text.toString()
             Thread{
                 try {
                     findSearchingAddress(it, searchText, geoCoder)
@@ -190,7 +191,9 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
                 .position(location)
                 .title(searchText))
         marker.let {
-            markers.add(marker)
+            if (marker != null) {
+                markers.add(marker)
+            }
         }
     }
 
@@ -224,20 +227,24 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
                     .build()
             }
         }
-        val geofenceRequest = GeofencingRequest.Builder()
-            .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-            .addGeofence(geofence)
-            .build()
+        val geofenceRequest = geofence?.let {
+            GeofencingRequest.Builder()
+                .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+                .addGeofence(it)
+                .build()
+        }
         val geoService = Intent(context, GeofenceRequestReceiver :: class.java)
         val pendingIntent = PendingIntent
             .getBroadcast(context, 0, geoService, PendingIntent.FLAG_UPDATE_CURRENT)
-        geofenceClient.addGeofences(geofenceRequest, pendingIntent).run {
-            addOnSuccessListener {
-                Log.i(TAG, getString(R.string.log_msg_geofence_add))
-            }
-            addOnFailureListener{
-                it.printStackTrace()
-                Log.e(TAG, it.message.toString())
+        if (geofenceRequest != null) {
+            geofenceClient.addGeofences(geofenceRequest, pendingIntent).run {
+                addOnSuccessListener {
+                    Log.i(TAG, getString(R.string.log_msg_geofence_add))
+                }
+                addOnFailureListener{
+                    it.printStackTrace()
+                    Log.e(TAG, it.message.toString())
+                }
             }
         }
 
