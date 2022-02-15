@@ -57,7 +57,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
         ) == PackageManager.PERMISSION_GRANTED){
               map.isMyLocationEnabled = true
         } else {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_CODE)
         }
         val initialPlace = INITIAL_PLACE
         val marker = googleMap.addMarker(MarkerOptions().position(initialPlace).title(getString(R.string.Start_position)))
