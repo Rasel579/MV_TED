@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.view.favorite_movies_fragment.LikedMoviesFragment">
+    tools:context=".presentation.favorite.LikedMoviesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/likes_movies_rec_view"

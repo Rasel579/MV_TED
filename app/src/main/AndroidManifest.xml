@@ -21,7 +21,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <receiver
-            android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.GeofenceRequestReceiver"
+            android:name="com.movieapp.mv_ted.utils.broadcastrecievers.GeofenceRequestReceiver"
             android:enabled="true"
             android:exported="true" />
 
@@ -30,7 +30,7 @@
             android:value="$BuildConfig.GOOGLE_MAPS_APIKEY" />
 
         <activity
-            android:name="com.movieapp.mv_ted.ui.view.MainActivity"
+            android:name="com.movieapp.mv_ted.presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,9 +38,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.DetailsServices" />
+        <service android:name="com.movieapp.mv_ted.utils.services.DetailsServices" />
         <service
-            android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.FCMService"
+            android:name="com.movieapp.mv_ted.utils.services.FCMService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -49,7 +49,7 @@
         </service>
 
         <receiver
-            android:name="com.movieapp.mv_ted.services_and_broadcastReceivers.MainBroadcastReceiver"
+            android:name="com.movieapp.mv_ted.utils.broadcastrecievers.MainBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
