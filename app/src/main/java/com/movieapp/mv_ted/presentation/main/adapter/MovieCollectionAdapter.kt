@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.movieapp.mv_ted.databinding.ItemCardMovieBinding
 import com.movieapp.mv_ted.domain.models.response.movie.MovieResponse
-import com.movieapp.mv_ted.models.data.model.imageUri
+import com.movieapp.mv_ted.utils.imageUri
 import com.movieapp.mv_ted.presentation.main.listeners.OnItemViewClickListener
 import com.squareup.picasso.Picasso
 

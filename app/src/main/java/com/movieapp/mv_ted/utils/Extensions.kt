@@ -1,4 +1,4 @@
-package com.movieapp.mv_ted.models.data.model
+package com.movieapp.mv_ted.utils
 
 import android.view.View
 import com.movieapp.mv_ted.presentation.main.MainViewModel

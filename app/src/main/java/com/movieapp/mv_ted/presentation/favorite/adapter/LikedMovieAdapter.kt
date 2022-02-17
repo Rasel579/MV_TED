@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.movieapp.mv_ted.databinding.ItemLikesBinding
 import com.movieapp.mv_ted.domain.models.Movie
-import com.movieapp.mv_ted.models.data.model.imageUri
+import com.movieapp.mv_ted.utils.imageUri
 import com.squareup.picasso.Picasso
 
 class LikedMovieAdapter : RecyclerView.Adapter<LikedMovieAdapter.LikedMovieViewHolder>() {
