@@ -3,18 +3,41 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/design_default_color_primary"
+        android:layout_height="200dp"
+        android:fitsSystemWindows="true"
         android:theme="@style/Theme.MV_TED.AppBarOverlay">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorSecondary"
-            app:popupTheme="@style/Theme.MV_TED.PopupOverlay"/>
+            app:contentScrim="?attr/colorControlHighlight"
+            app:expandedTitleGravity="top"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
+            app:title="Top Movies"
+            app:collapsedTitleTextAppearance="?attr/collapsingToolbarLayoutStyle"
+            app:expandedTitleTextAppearance="?attr/expanded"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true">
+            <ImageView
+                android:id="@+id/expanded_image_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:alpha="0.2"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
+                android:src="@drawable/mv_ted_bck_grnd"/>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/Theme.MV_TED.PopupOverlay"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <include
         android:id="@+id/content_main_frame"

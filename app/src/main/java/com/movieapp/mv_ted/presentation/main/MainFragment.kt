@@ -2,23 +2,21 @@ package com.movieapp.mv_ted.presentation.main
 
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.movieapp.mv_ted.R
 import com.movieapp.mv_ted.R.id.changeContent
 import com.movieapp.mv_ted.databinding.MainFragmentBinding
-import com.movieapp.mv_ted.presentation.main.listeners.OnItemViewClickListener
-import com.movieapp.mv_ted.domain.models.response.MovieResultDTO
-import com.movieapp.mv_ted.presentation.main.adapter.MovieCollectionAdapter
-import com.movieapp.mv_ted.presentation.detail.DetailFragment
 import com.movieapp.mv_ted.domain.AppState
-import com.movieapp.mv_ted.models.data.model.TAG
+import com.movieapp.mv_ted.domain.models.response.MovieResponse
 import com.movieapp.mv_ted.models.data.model.showSnackBar
+import com.movieapp.mv_ted.presentation.detail.DetailFragment
+import com.movieapp.mv_ted.presentation.main.adapter.MovieCollectionAdapter
+import com.movieapp.mv_ted.presentation.main.listeners.OnItemViewClickListener
 
 @Suppress("NAME_SHADOWING")
 class MainFragment : Fragment() {
@@ -26,8 +24,8 @@ class MainFragment : Fragment() {
     private  val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
-    private var listMoviesNow: MutableList<MovieResultDTO>? = null
-    private var listMoviesUpcoming: MutableList<MovieResultDTO>? = null
+    private var listMoviesNow: MutableList<MovieResponse>? = null
+    private var listMoviesUpcoming: MutableList<MovieResponse>? = null
     private var isAdult = false
 
 
@@ -37,9 +35,9 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        viewModel.getData().observe(viewLifecycleOwner, {
+        viewModel.getData().observe(viewLifecycleOwner){
             renderData(it as AppState)
-        })
+        }
         initDataSet()
         Log.e(is_TAG_ADULT, isAdult.toString())
         viewModel.loadMovieDataRetrofit(isAdult)
@@ -76,14 +74,7 @@ class MainFragment : Fragment() {
     private fun initListView()= with(_binding) {
         setMenuVisibility(true)
         val recyclerViewNow = recycleViewLayout
-        recyclerViewNow.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewNow.adapter = createAdapter(listMoviesNow)
-        Log.d(TAG, listMoviesUpcoming.toString())
-        val recyclerViewComingSoon = recycleViewLayoutComingSoon
-        recyclerViewComingSoon.adapter = createAdapter(listMoviesUpcoming)
-        recyclerViewComingSoon.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -112,12 +103,12 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun createAdapter(listMovies: MutableList<MovieResultDTO>?) = MovieCollectionAdapter(listMovies, object : OnItemViewClickListener{
-            override fun onItemClickListener(movie: MovieResultDTO) {
+    private fun createAdapter(listMovies: MutableList<MovieResponse>?) = MovieCollectionAdapter(listMovies, object : OnItemViewClickListener{
+            override fun onItemClickListener(movie: MovieResponse) {
                 val manager = activity?.supportFragmentManager
                 manager?.let { manager ->
                     val bundle = Bundle().apply{
-                        putParcelable(DetailFragment.MOVIE_DATA, movie)
+                        putInt(DetailFragment.MOVIE_ID, movie.id)
                     }
                     manager.beginTransaction()
                         .replace(R.id.content_main_frame, DetailFragment.newInstance(bundle))
