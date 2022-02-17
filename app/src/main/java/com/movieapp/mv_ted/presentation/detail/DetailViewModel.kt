@@ -1,6 +1,5 @@
 package com.movieapp.mv_ted.presentation.detail
 
-import com.movieapp.mv_ted.data.repository.RepositoryImpl
 import com.movieapp.mv_ted.domain.AppState
 import com.movieapp.mv_ted.domain.models.Comment
 import com.movieapp.mv_ted.domain.models.Movie
@@ -9,7 +8,7 @@ import com.movieapp.mv_ted.presentation.core.BaseViewModel
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
-    private val repository: Repository = RepositoryImpl()
+    private val repository: Repository
 ) : BaseViewModel() {
     fun getAllCommentsByMovie(movieId: String) {
         liveData.value = AppState.Loading

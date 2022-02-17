@@ -1,29 +1,21 @@
 package com.movieapp.mv_ted.data.repository
 
 import com.movieapp.mv_ted.data.datasource.cloudsource.CloudSource
-import com.movieapp.mv_ted.data.datasource.cloudsource.CloudSourceImpl
+import com.movieapp.mv_ted.data.datasource.localstore.DataStore
+import com.movieapp.mv_ted.data.datasource.localstore.commentdb.CommentEntity
+import com.movieapp.mv_ted.data.datasource.localstore.likesmoviesdb.LikesMoviesEntity
 import com.movieapp.mv_ted.domain.models.Comment
 import com.movieapp.mv_ted.domain.models.Movie
-import com.movieapp.mv_ted.domain.repository.Repository
-import com.movieapp.mv_ted.data.datasource.localstore.commentdb.CommentDataBase
-import com.movieapp.mv_ted.data.datasource.localstore.commentdb.CommentEntity
-import com.movieapp.mv_ted.data.datasource.localstore.likesmoviesdb.LikesMoviesDatabase
-import com.movieapp.mv_ted.data.datasource.localstore.likesmoviesdb.LikesMoviesEntity
-import com.movieapp.mv_ted.models.data.model.getDataMovie
+import com.movieapp.mv_ted.domain.models.response.credits.ActorsResponse
 import com.movieapp.mv_ted.domain.models.response.movie.Film
 import com.movieapp.mv_ted.domain.models.response.movie.MovieDTO
 import com.movieapp.mv_ted.domain.models.response.movie.MovieResponse
-import com.movieapp.mv_ted.data.datasource.cloudsource.rest_mdbApi.MoviesLoader
-import com.movieapp.mv_ted.data.datasource.cloudsource.api.BackendRepo
-import com.movieapp.mv_ted.data.datasource.localstore.DataStore
-import com.movieapp.mv_ted.data.datasource.localstore.DataStoreImpl
-import com.movieapp.mv_ted.domain.models.response.credits.ActorsResponse
+import com.movieapp.mv_ted.domain.repository.Repository
 import retrofit2.Callback
-import java.net.URL
 
 class RepositoryImpl(
-    private val cloudSource: CloudSource = CloudSourceImpl(),
-    private val dataStore: DataStore = DataStoreImpl()
+    private val cloudSource: CloudSource,
+    private val dataStore: DataStore
 ) : Repository {
     override suspend fun getDataFromServerRetrofit(): MovieDTO = cloudSource.getMoviesList()
     override suspend fun getDataNextList(page: Int): MovieDTO =

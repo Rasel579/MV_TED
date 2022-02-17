@@ -1,5 +1,6 @@
 package com.movieapp.mv_ted.data.datasource.localstore.commentdb
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -11,12 +12,17 @@ abstract class CommentDataBase : RoomDatabase() {
 
     companion object {
        private const val DB_NAME = "add_database.db"
-       val db : CommentDataBase by lazy {
-           Room.databaseBuilder(
-               App.appInstance,
-               CommentDataBase :: class.java,
-               DB_NAME
-           ).build()
-       }
+        fun create(context: Context) = Room.databaseBuilder(
+            context,
+            CommentDataBase :: class.java,
+            DB_NAME
+        ).build()
+//       val db : CommentDataBase by lazy {
+//           Room.databaseBuilder(
+//               App.appInstance,
+//               CommentDataBase :: class.java,
+//               DB_NAME
+//           ).build()
+//       }
     }
 }

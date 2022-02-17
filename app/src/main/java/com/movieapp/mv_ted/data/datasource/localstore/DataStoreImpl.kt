@@ -1,15 +1,13 @@
 package com.movieapp.mv_ted.data.datasource.localstore
 
 import com.movieapp.mv_ted.data.datasource.localstore.commentdb.CommentDAO
-import com.movieapp.mv_ted.data.datasource.localstore.commentdb.CommentDataBase
 import com.movieapp.mv_ted.data.datasource.localstore.commentdb.CommentEntity
 import com.movieapp.mv_ted.data.datasource.localstore.likesmoviesdb.LikesMoviesDAO
-import com.movieapp.mv_ted.data.datasource.localstore.likesmoviesdb.LikesMoviesDatabase
 import com.movieapp.mv_ted.data.datasource.localstore.likesmoviesdb.LikesMoviesEntity
 
 class DataStoreImpl(
-    private val commentDb: CommentDAO = CommentDataBase.db.commentDao(),
-    private val likesDb: LikesMoviesDAO = LikesMoviesDatabase.db.likesMoviesDao()
+    private val commentDb: CommentDAO,
+    private val likesDb: LikesMoviesDAO
 ) : DataStore {
     override fun getAll(): List<CommentEntity> = commentDb.getAll()
 

@@ -1,7 +1,6 @@
 package com.movieapp.mv_ted.data.datasource.cloudsource
 
 import com.movieapp.mv_ted.data.datasource.cloudsource.api.BackendApi
-import com.movieapp.mv_ted.data.datasource.cloudsource.api.BackendRepo
 import com.movieapp.mv_ted.domain.models.response.credits.ActorsResponse
 import com.movieapp.mv_ted.domain.models.response.movie.Film
 import com.movieapp.mv_ted.domain.models.response.movie.MovieDTO
@@ -9,7 +8,7 @@ import com.movieapp.mv_ted.domain.models.response.movie.MovieResponse
 import retrofit2.Call
 
 class CloudSourceImpl(
-    private val api: BackendApi = BackendRepo.api
+    private val api: BackendApi
 ) : CloudSource {
     override suspend fun getMoviesList(): MovieDTO = api.getMoviesList()
 

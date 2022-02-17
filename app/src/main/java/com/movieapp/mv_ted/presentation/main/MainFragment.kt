@@ -4,7 +4,6 @@ package com.movieapp.mv_ted.presentation.main
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.movieapp.mv_ted.R
@@ -16,12 +15,14 @@ import com.movieapp.mv_ted.presentation.core.BaseFragment
 import com.movieapp.mv_ted.presentation.detail.DetailFragment
 import com.movieapp.mv_ted.presentation.main.adapter.MovieCollectionAdapter
 import com.movieapp.mv_ted.presentation.main.listeners.OnItemViewClickListener
+import org.koin.android.ext.android.getKoin
+import org.koin.core.scope.Scope
 
 class MainFragment : BaseFragment<MainFragmentBinding>(R.layout.main_fragment) {
+    override val scope: Scope = getKoin().createScope<MainFragment>()
     override val viewBinding: MainFragmentBinding by viewBinding()
-    override val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
+    override val viewModel: MainViewModel = scope.get()
+
     private var listMoviesNow: MutableList<MovieResponse>? = mutableListOf()
     private var isAdult: Boolean = false
     private val adapter: MovieCollectionAdapter by lazy {

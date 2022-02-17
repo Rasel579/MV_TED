@@ -1,4 +1,3 @@
-
 package com.movieapp.mv_ted.presentation.maps
 
 import android.Manifest
@@ -11,12 +10,9 @@ import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.GoogleApiClient.Builder
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks
@@ -35,48 +31,59 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.movieapp.mv_ted.R
 import com.movieapp.mv_ted.databinding.FragmentMapsBinding
 import com.movieapp.mv_ted.domain.AppState
+import com.movieapp.mv_ted.presentation.core.BaseFragment
 import com.movieapp.mv_ted.utils.broadcastrecievers.GeofenceRequestReceiver
+import org.koin.android.ext.android.getKoin
+import org.koin.core.scope.Scope
 
-class MapsFragment : Fragment(), ConnectionCallbacks {
-    private var binding: FragmentMapsBinding?= null
-    private lateinit var map : GoogleMap
-    private lateinit var googleClient : GoogleApiClient
-    private lateinit var geofenceClient : GeofencingClient
-    private var geofence :Geofence? = null
+class MapsFragment : BaseFragment<FragmentMapsBinding>(R.layout.fragment_maps),
+    ConnectionCallbacks {
+    override val viewBinding: FragmentMapsBinding by viewBinding()
+    override val scope: Scope = getKoin().createScope<MapsFragment>()
+    private lateinit var map: GoogleMap
+    private lateinit var googleClient: GoogleApiClient
+    private lateinit var geofenceClient: GeofencingClient
+    private var geofence: Geofence? = null
     private val markers: ArrayList<Marker> = ArrayList()
     private val movieId: Int? by lazy {
         arguments?.getInt(MOVIE_ID)
     }
-    private val viewModel : MapsViewModel by lazy {
-        ViewModelProvider(this).get(MapsViewModel::class.java)
-    }
+    override val viewModel: MapsViewModel = scope.get()
+
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
-        if(ActivityCompat.checkSelfPermission(
-             requireContext(),
-             Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED){
-              map.isMyLocationEnabled = true
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            map.isMyLocationEnabled = true
         } else {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_CODE)
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ), REQUEST_CODE
+            )
         }
         val initialPlace = INITIAL_PLACE
-        val marker = googleMap.addMarker(MarkerOptions().position(initialPlace).title(getString(R.string.Start_position)))
+        val marker = googleMap.addMarker(
+            MarkerOptions().position(initialPlace).title(getString(R.string.Start_position))
+        )
         marker.let {
             if (it != null) {
                 markers.add(it)
             }
         }
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(initialPlace))
-        googleMap.setOnMapLongClickListener {latLng ->
-                getAddressAsync(latLng)
-                setMarker(latLng, "")
-                drawLine()
+        googleMap.setOnMapLongClickListener { latLng ->
+            getAddressAsync(latLng)
+            setMarker(latLng, "")
+            drawLine()
         }
 
     }
-
 
 
     @SuppressLint("MissingPermission")
@@ -90,17 +97,11 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
         initGeofence()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMapsBinding.bind(inflater.inflate(R.layout.fragment_maps, container, false))
-        viewModel.liveData.observe(viewLifecycleOwner) {
+    override fun onStart() {
+        viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
-        viewModel.getCountryOfFilm(movieId.toString())
-        return binding?.root
+        super.onStart()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -111,59 +112,63 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
     }
 
     private fun getAddressAsync(latLng: LatLng) {
-         context?.let {
-           val geocoder = Geocoder(it)
-           Thread {
-               try {
-                   val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, COUNT_ADDRESSES_FROM_GEOCODER)
-                   binding?.textAddress?.post{
-                       binding!!.textAddress.text = address.first().getAddressLine(0)
-                   }
+        context?.let {
+            val geocoder = Geocoder(it)
+            Thread {
+                try {
+                    val address = geocoder.getFromLocation(
+                        latLng.latitude,
+                        latLng.longitude,
+                        COUNT_ADDRESSES_FROM_GEOCODER
+                    )
+                    viewBinding?.textAddress?.post {
+                        viewBinding!!.textAddress.text = address.first().getAddressLine(0)
+                    }
 
-               } catch (e: Exception) {
-                   e.printStackTrace()
-               }
-           }.start()
-         }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }.start()
+        }
     }
 
     private fun drawLine() {
-        val last : Int = markers.size - 1
-        if (last >= 1){
-             val previousPos = markers[last - 1].position
-             val currentPos = markers[last].position
-              map.addPolyline(
-                  PolylineOptions()
-                      .add(previousPos, currentPos)
-                      .color(Color.RED)
-                      .width(POLYLINE_WIDTH)
-              )
+        val last: Int = markers.size - 1
+        if (last >= 1) {
+            val previousPos = markers[last - 1].position
+            val currentPos = markers[last].position
+            map.addPolyline(
+                PolylineOptions()
+                    .add(previousPos, currentPos)
+                    .color(Color.RED)
+                    .width(POLYLINE_WIDTH)
+            )
         }
     }
-    private fun initSearchByAddress(){
-          binding?.btnSearch?.setOnClickListener{
+
+    private fun initSearchByAddress() {
+        viewBinding?.btnSearch?.setOnClickListener {
             val geoCoder = Geocoder(it.context)
-            val searchText = binding?.searchAddress?.text.toString()
-            Thread{
+            val searchText = viewBinding?.searchAddress?.text.toString()
+            Thread {
                 try {
                     findSearchingAddress(it, searchText, geoCoder)
-                } catch (e : Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
             }.start()
-          }
+        }
     }
 
-    private fun renderData(it: AppState?) {
-        when(it){
-            is AppState.SuccessFilmCountry ->{
-                Log.i(TAG_FRG, it.country)
+    override fun renderData(appState: AppState) {
+        when (appState) {
+            is AppState.SuccessFilmCountry -> {
                 val geocoder = Geocoder(requireContext())
-                Thread{
+                Thread {
                     try {
-                        findSearchingAddress(view, it.country, geocoder)
-                    } catch (e : Exception){
+                        findSearchingAddress(view, appState.country, geocoder)
+                    } catch (e: Exception) {
                         e.printStackTrace()
                     }
                 }.start()
@@ -174,27 +179,30 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
     }
 
     private fun goToAddress(view: View?, address: List<Address>, searchText: String) {
-           val location = LatLng(address.first().latitude, address.first().longitude)
-           view?.post {
-                setMarker(location, searchText)
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
-           }
+        val location = LatLng(address.first().latitude, address.first().longitude)
+        view?.post {
+            setMarker(location, searchText)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+        }
 
     }
 
     private fun findSearchingAddress(it: View?, searchText: String, geoCoder: Geocoder) {
-        val address = geoCoder.getFromLocationName(searchText,
+        val address = geoCoder.getFromLocationName(
+            searchText,
             COUNT_ADDRESSES_FROM_GEOCODER
         )
-        if (address.isNotEmpty()){
+        if (address.isNotEmpty()) {
             goToAddress(it, address, searchText)
         }
     }
 
     private fun setMarker(location: LatLng, searchText: String) {
-            val marker = map.addMarker(MarkerOptions()
+        val marker = map.addMarker(
+            MarkerOptions()
                 .position(location)
-                .title(searchText))
+                .title(searchText)
+        )
         marker.let {
             if (marker != null) {
                 markers.add(marker)
@@ -208,9 +216,9 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        when(requestCode){
-            REQUEST_CODE ->{
-                if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED){
+        when (requestCode) {
+            REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
                     map.isMyLocationEnabled = true
                 }
             }
@@ -221,7 +229,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
     private fun initGeofence() {
         geofenceClient = LocationServices.getGeofencingClient(requireContext())
         geofence = CINEMA[cinema7d]?.get(0)?.let { latitude ->
-            CINEMA[cinema7d]?.get(1)?.let { longitude  ->
+            CINEMA[cinema7d]?.get(1)?.let { longitude ->
                 Geofence.Builder().setRequestId(GEOFENCE_REQUEST_ID)
                     .setCircularRegion(
                         latitude,
@@ -239,7 +247,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
                 .addGeofence(it)
                 .build()
         }
-        val geoService = Intent(context, GeofenceRequestReceiver :: class.java)
+        val geoService = Intent(context, GeofenceRequestReceiver::class.java)
         val pendingIntent = PendingIntent
             .getBroadcast(context, 0, geoService, PendingIntent.FLAG_MUTABLE)
         if (geofenceRequest != null) {
@@ -247,7 +255,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
                 addOnSuccessListener {
                     Log.i(TAG, getString(R.string.log_msg_geofence_add))
                 }
-                addOnFailureListener{
+                addOnFailureListener {
                     it.printStackTrace()
                     Log.e(TAG, it.message.toString())
                 }
@@ -256,6 +264,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
 
 
     }
+
     override fun onConnected(bundle: Bundle?) {
         //onConnected
     }
@@ -268,7 +277,7 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
         private const val REQUEST_CODE = 89
         private const val GEOFENCE_TIME = 800000L
         private const val RADIUS_GEOFENCE_REGION = 100f
-        private val INITIAL_PLACE = LatLng(60.43,50.34)
+        private val INITIAL_PLACE = LatLng(60.43, 50.34)
         private const val cinemaGrandPlace = "Cinema grand place"
         private const val cinemaHostel = "Cinema hostel"
         private const val cinema7d = "Cinema 7d"
@@ -277,12 +286,13 @@ class MapsFragment : Fragment(), ConnectionCallbacks {
         private const val GEOFENCE_REQUEST_ID = "Cinema_7d"
         private const val TAG = "Geofence_On_GoogleMap"
         private const val TAG_FRG = "FRAGMENT_COUNTRY"
-         val CINEMA : Map <String, Array<Double>> = mapOf(
-             Pair(cinemaGrandPlace, arrayOf(59.9361,30.3336)),
-             Pair(cinemaHostel, arrayOf(59.9225,30.3326)),
-             Pair(cinema7d, arrayOf(59.9189,30.3389))
-         )
-        fun newInstance(bundle: Bundle) : MapsFragment {
+        val CINEMA: Map<String, Array<Double>> = mapOf(
+            Pair(cinemaGrandPlace, arrayOf(59.9361, 30.3336)),
+            Pair(cinemaHostel, arrayOf(59.9225, 30.3326)),
+            Pair(cinema7d, arrayOf(59.9189, 30.3389))
+        )
+
+        fun newInstance(bundle: Bundle): MapsFragment {
             val fragment = MapsFragment()
             fragment.arguments = bundle
             return fragment

@@ -30,9 +30,9 @@ class DetailFragmentAdapter
     inner class DetailsViewHolder(
         private val binding: ItemDetailBinding
         ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(comment: Comment) = with(itemView) {
+        fun bind(comment: Comment) = with(binding) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                binding.itemComment.text = comment.comment
+                itemComment.text = comment.comment
             }
         }
 

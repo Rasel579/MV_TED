@@ -15,6 +15,7 @@ class MovieCollectionAdapter(
     private val getData: (Int) -> Unit
 ) : RecyclerView.Adapter<MovieCollectionAdapter.ViewHolder>() {
     private var page = 1
+    private val positionToPreLoad = 5
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,7 +27,7 @@ class MovieCollectionAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         listMovies?.get(position)?.let { holder.setData(it) }
         holder.setIsRecyclable(false)
-        if (position == listMovies?.size?.minus(5)) {
+        if (position == listMovies?.size?.minus(positionToPreLoad)) {
             page++
             getData.invoke(page)
         }
@@ -42,6 +43,7 @@ class MovieCollectionAdapter(
     inner class ViewHolder(
         private val viewBinding: ItemCardMovieBinding
     ) : RecyclerView.ViewHolder(viewBinding.root) {
+        private val convertToDecimal = 10
         fun setData(movie: MovieResponse) = with(viewBinding) {
             titleView.text = movie.originalTitle
             dateUpcoming.text = movie.releaseDate
@@ -49,7 +51,7 @@ class MovieCollectionAdapter(
             Picasso.get()
                 .load(imageUri + movie.posterPath)
                 .into(moviePoster)
-            progressRatio.progress = (movie.voteAverage * 10).toInt()
+            progressRatio.progress = (movie.voteAverage * convertToDecimal).toInt()
             viewBinding.root.setOnClickListener {
                 onItemViewClickListener.onItemClickListener(movie)
             }
