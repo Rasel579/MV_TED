@@ -12,16 +12,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ImageView"
-            android:layout_width="match_parent"
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/movie_poster"
+            android:layout_width="wrap_content"
             android:layout_height="280dp"
-            app:srcCompat="@drawable/avengers"
-            android:scaleType="fitXY"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_layout"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/avengers" />
 
         <RelativeLayout
             android:id="@+id/progress_layout"
@@ -29,20 +30,21 @@
             android:layout_height="50dp"
             android:alpha="0.8"
             app:layout_constraintBottom_toTopOf="@+id/dateUpcoming"
-            app:layout_constraintStart_toStartOf="@+id/ImageView"
+            app:layout_constraintStart_toStartOf="@+id/movie_poster"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.86"
             android:background="@drawable/round">
 
             <ProgressBar
+                android:id="@+id/progress_ratio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:progress="90"
-                android:progressDrawable="@drawable/ring"
                 android:indeterminate="false"
                 android:indeterminateOnly="false"
-                android:indeterminateTint="#40B539" />
+                android:indeterminateTint="#40B539"
+                android:progress="90"
+                android:progressDrawable="@drawable/ring" />
 
             <TextView
                 android:id="@+id/ratio_text"
@@ -63,7 +65,7 @@
             android:textSize="@dimen/item_recycler_text_size"
             android:textColor="@color/black"
             android:maxLength="30"
-            app:layout_constraintStart_toStartOf="@+id/ImageView"
+            app:layout_constraintStart_toStartOf="@+id/movie_poster"
             app:layout_constraintTop_toBottomOf="@+id/progress_layout"
             tools:text="Title of Superable Movie"/>
         <TextView

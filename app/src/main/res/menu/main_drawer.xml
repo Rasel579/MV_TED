@@ -3,27 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/main_frame_menu"
+        android:id="@+id/main_frame_menu_drawer"
         android:orderInCategory="10"
         android:title="@string/main_frame_item_menu"
         android:icon="@android:drawable/ic_menu_my_calendar"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
-        android:id="@+id/favorite_item_menu"
+        android:id="@+id/favorite_item_menu_drawer"
         android:title="@string/favorite_movies_item_menu"
         android:orderInCategory="20"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
     <item
-        android:id="@+id/to_contacts"
+        android:id="@+id/to_contacts_drawer_menu"
         android:title="@string/go_to_contacts"
         android:orderInCategory="150"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/search_menu"
-        android:title="@string/search_movie_item_menu"
-        android:orderInCategory="1"
-        app:showAsAction="always"
-        app:actionViewClass="android.widget.SearchView"/>
+        app:showAsAction="always"/>
 
 </menu>

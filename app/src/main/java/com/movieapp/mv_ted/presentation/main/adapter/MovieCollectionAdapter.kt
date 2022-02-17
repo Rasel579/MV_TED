@@ -1,55 +1,56 @@
 package com.movieapp.mv_ted.presentation.main.adapter
 
-import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.movieapp.mv_ted.databinding.ItemCardMovieBinding
+import com.movieapp.mv_ted.domain.models.response.movie.MovieResponse
 import com.movieapp.mv_ted.models.data.model.imageUri
 import com.movieapp.mv_ted.presentation.main.listeners.OnItemViewClickListener
-import com.movieapp.mv_ted.domain.models.response.MovieResponse
 import com.squareup.picasso.Picasso
 
 class MovieCollectionAdapter(
     private var listMovies: MutableList<MovieResponse>?,
-    private val onItemViewClickListener: OnItemViewClickListener
-) :
-    RecyclerView.Adapter<MovieCollectionAdapter.ViewHolder>() {
-    private lateinit var _binding : ItemCardMovieBinding
+    private val onItemViewClickListener: OnItemViewClickListener,
+    private val getData: (Int) -> Unit
+) : RecyclerView.Adapter<MovieCollectionAdapter.ViewHolder>() {
+    private var page = 1
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
-        _binding = ItemCardMovieBinding.inflate(LayoutInflater.from(parent.context),parent, false)
-        return ViewHolder(_binding.root)
-    }
+    ): ViewHolder = ViewHolder(
+        ItemCardMovieBinding.inflate(LayoutInflater.from(parent.context))
+    )
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         listMovies?.get(position)?.let { holder.setData(it) }
         holder.setIsRecyclable(false)
+        if (position == listMovies?.size?.minus(5)) {
+            page++
+            getData.invoke(page)
+        }
     }
 
     override fun getItemCount(): Int = listMovies?.size ?: 0
 
-   inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var titleTextMovie: TextView = let { _binding.titleView }
-        private var imageViewMovie: AppCompatImageView = let { _binding.ImageView}
-        private var dateUpcomingMovie: TextView = let { _binding.dateUpcoming }
+    fun addPageData(data: MutableList<MovieResponse>?) {
+        data?.let { listMovies?.addAll(it) }
+        notifyDataSetChanged()
+    }
 
-        @RequiresApi(Build.VERSION_CODES.M)
-        fun setData(movie: MovieResponse) {
-            titleTextMovie.text = movie.originalTitle
-            dateUpcomingMovie.text = movie.releaseDate
+    inner class ViewHolder(
+        private val viewBinding: ItemCardMovieBinding
+    ) : RecyclerView.ViewHolder(viewBinding.root) {
+        fun setData(movie: MovieResponse) = with(viewBinding) {
+            titleView.text = movie.originalTitle
+            dateUpcoming.text = movie.releaseDate
+            ratioText.text = movie.voteAverage.toString()
             Picasso.get()
                 .load(imageUri + movie.posterPath)
-                .into(imageViewMovie)
-            _binding.root.setOnClickListener {
+                .into(moviePoster)
+            progressRatio.progress = (movie.voteAverage * 10).toInt()
+            viewBinding.root.setOnClickListener {
                 onItemViewClickListener.onItemClickListener(movie)
             }
         }

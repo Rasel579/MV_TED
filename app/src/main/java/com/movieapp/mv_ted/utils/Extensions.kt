@@ -20,7 +20,7 @@ fun View.showSnackBar(message: String, length : Int){
 fun View.showSnackBar(message: String, length: Int, actionText: String, viewModel : MainViewModel){
     Snackbar.make(this, message, length)
         .setAction(actionText) {
-            viewModel.getMovieData()
+            viewModel.getData()
         }.show()
 }
 

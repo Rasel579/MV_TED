@@ -31,19 +31,22 @@
             android:layout_gravity="bottom"
             android:background="#595656" />
     </com.google.android.material.card.MaterialCardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_View_layout"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="fill_vertical"
-        android:layout_marginTop="@dimen/recycler_view_now_playing_margin_top"
-        android:layout_marginBottom="@dimen/recycler_view_now_playing_margin_bottom"
-        android:outlineProvider="paddedBounds"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/item_card_movie" />
-
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_View_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_vertical"
+            android:layout_marginTop="@dimen/recycler_view_now_playing_margin_top"
+            android:layout_marginBottom="@dimen/recycler_view_now_playing_margin_bottom"
+            android:outlineProvider="paddedBounds"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_card_movie" />
+    </androidx.core.widget.NestedScrollView>
 
     <FrameLayout
         android:id="@+id/loadingLayout"

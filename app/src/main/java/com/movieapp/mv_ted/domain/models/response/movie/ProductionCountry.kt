@@ -1,4 +1,4 @@
-package com.movieapp.mv_ted.domain.models.response
+package com.movieapp.mv_ted.domain.models.response.movie
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

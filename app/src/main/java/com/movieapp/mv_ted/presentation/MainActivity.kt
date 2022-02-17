@@ -2,7 +2,6 @@ package com.movieapp.mv_ted.presentation
 
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,83 +9,85 @@ import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.appbar.MaterialToolbar
 import com.movieapp.mv_ted.R
 import com.movieapp.mv_ted.databinding.ActivityMainBinding
 import com.movieapp.mv_ted.presentation.contactsreader.ContactProviderFragment
-import com.movieapp.mv_ted.utils.broadcastrecievers.MainBroadcastReceiver
 import com.movieapp.mv_ted.presentation.favorite.LikedMoviesFragment
 import com.movieapp.mv_ted.presentation.main.MainFragment
+import com.movieapp.mv_ted.utils.broadcastrecievers.MainBroadcastReceiver
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
+    //TODO(Вынести в DI)
     private val broadcastReceiver = MainBroadcastReceiver()
-    private val _binding : ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
+    private val viewBinding: ActivityMainBinding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(_binding.root)
+        setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             navigationFragment(MainFragment.newInstance())
         }
         initView()
-        registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.EXTRA_REASON))
 
     }
 
     private fun navigationFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.content_main_frame, fragment)
-            .commitNow()
+            .commit()
     }
 
     private fun initView() {
-        val toolbar: androidx.appcompat.widget.Toolbar = initToolbar()
+        val toolbar: MaterialToolbar = initToolbar()
         initDrawer(toolbar)
     }
 
-    private fun initToolbar(): androidx.appcompat.widget.Toolbar {
-        val toolbar = _binding.appBarMain.toolbar
+    private fun initToolbar(): MaterialToolbar {
+        val toolbar = viewBinding.appBarMain.toolbar
         setSupportActionBar(toolbar)
         return toolbar
     }
 
-    private fun initDrawer(toolbar: androidx.appcompat.widget.Toolbar) {
-        val drawerLayout: DrawerLayout = _binding.drawerLayout
+    private fun initDrawer(toolbar: MaterialToolbar) {
+        val drawerLayout: DrawerLayout = viewBinding.drawerLayout
         val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar,
+            this,
+            drawerLayout,
+            toolbar,
             R.string.closer_drawer_conent_text,
             R.string.open_string_text_drawer
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        val navigationView = _binding.navView
+
+        val navigationView = viewBinding.navView
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.setting_item_menu -> {
-                    Toast.makeText(this, getString(R.string.NavigationFDawerText), Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.favorite_item_menu -> {
+                R.id.favorite_item_menu_drawer -> {
                     navigationFragment(LikedMoviesFragment.newInstance())
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
-                R.id.main_frame_menu -> {
+                R.id.main_frame_menu_drawer -> {
                     navigationFragment(MainFragment.newInstance())
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
-                R.id.to_contacts -> {
+                R.id.to_contacts_drawer_menu -> {
                     navigationFragment(ContactProviderFragment.newInstance())
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
-                else -> false
+                else -> {
+                    true
+                }
             }
         }
     }
@@ -118,16 +119,12 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.main_frame_menu -> {
                 navigationFragment(MainFragment.newInstance())
-                Toast.makeText(baseContext, getString(R.string.textOnOptionItemSelectedMainFrame), Toast.LENGTH_SHORT).show()
-                return true
             }
-            R.id.favorite_item_menu ->{
+            R.id.favorite_item_menu -> {
                 navigationFragment(LikedMoviesFragment.newInstance())
-                Toast.makeText(baseContext, getString(R.string.toast_menu_favorite_text), Toast.LENGTH_SHORT).show()
             }
             R.id.to_contacts -> {
                 navigationFragment(ContactProviderFragment.newInstance())
-                Toast.makeText(baseContext, getString(R.string.toast_menu_contacts_title), Toast.LENGTH_LONG).show()
             }
         }
         return super.onOptionsItemSelected(item)
