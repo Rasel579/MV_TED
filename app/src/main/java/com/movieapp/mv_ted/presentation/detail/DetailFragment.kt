@@ -14,7 +14,7 @@ import com.movieapp.mv_ted.domain.models.Movie
 import com.movieapp.mv_ted.domain.models.response.credits.ActorsResponse
 import com.movieapp.mv_ted.domain.models.response.movie.Genre
 import com.movieapp.mv_ted.domain.models.response.movie.MovieResponse
-import com.movieapp.mv_ted.models.data.model.imageUri
+import com.movieapp.mv_ted.utils.imageUri
 import com.movieapp.mv_ted.presentation.core.BaseFragment
 import com.movieapp.mv_ted.presentation.detail.adapter.CastAdapter
 import com.movieapp.mv_ted.presentation.detail.adapter.DetailFragmentAdapter

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.movieapp.mv_ted.databinding.ItemActorItemBinding
 import com.movieapp.mv_ted.domain.models.response.credits.ActorsResponse
 import com.movieapp.mv_ted.domain.models.response.credits.Cast
-import com.movieapp.mv_ted.models.data.model.imageUri
+import com.movieapp.mv_ted.utils.imageUri
 import com.squareup.picasso.Picasso
 
 class CastAdapter(

@@ -4,9 +4,9 @@ import android.app.IntentService
 import android.content.Intent
 import android.os.Parcelable
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.movieapp.mv_ted.models.data.model.*
 import com.movieapp.mv_ted.domain.models.response.movie.MovieResponse
 import com.movieapp.mv_ted.data.datasource.cloudsource.rest_mdbApi.MoviesLoader
+import com.movieapp.mv_ted.utils.*
 import java.util.ArrayList
 
 

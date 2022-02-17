@@ -10,7 +10,7 @@ import com.movieapp.mv_ted.R
 import com.movieapp.mv_ted.databinding.MainFragmentBinding
 import com.movieapp.mv_ted.domain.AppState
 import com.movieapp.mv_ted.domain.models.response.movie.MovieResponse
-import com.movieapp.mv_ted.models.data.model.showSnackBar
+import com.movieapp.mv_ted.utils.showSnackBar
 import com.movieapp.mv_ted.presentation.core.BaseFragment
 import com.movieapp.mv_ted.presentation.detail.DetailFragment
 import com.movieapp.mv_ted.presentation.main.adapter.MovieCollectionAdapter

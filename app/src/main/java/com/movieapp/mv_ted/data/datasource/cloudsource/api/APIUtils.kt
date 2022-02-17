@@ -1,7 +1,7 @@
 package com.movieapp.mv_ted.data.datasource.cloudsource.api
 
 import com.movieapp.mv_ted.BuildConfig
-import com.movieapp.mv_ted.models.data.model.uriRetroApi
+import com.movieapp.mv_ted.utils.uriRetroApi
 import okhttp3.Dns
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
