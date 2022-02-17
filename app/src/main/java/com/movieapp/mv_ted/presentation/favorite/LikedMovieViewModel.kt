@@ -1,28 +1,31 @@
 package com.movieapp.mv_ted.presentation.favorite
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.movieapp.mv_ted.domain.repository.Repository
 import com.movieapp.mv_ted.data.repository.RepositoryImpl
 import com.movieapp.mv_ted.domain.AppState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
+import com.movieapp.mv_ted.domain.repository.Repository
+import com.movieapp.mv_ted.presentation.core.BaseViewModel
 import kotlinx.coroutines.launch
 
-class LikedMovieViewModel (
-    val liveData: MutableLiveData<AppState> = MutableLiveData(),
+class LikedMovieViewModel(
     private val repository: Repository = RepositoryImpl()
-) : ViewModel(), CoroutineScope by MainScope() {
+) : BaseViewModel() {
 
-       fun getAllMovies(){
-           liveData.value = AppState.Loading
-           launch(Dispatchers.IO) {
-               liveData.postValue(
-                   AppState.SuccessLike(
-                       repository.getAllLikesMovies()
-                   )
-               )
-           }
-       }
+    override fun getData() {
+        liveData.value = AppState.Loading
+        viewModelCoroutineScope.launch {
+            liveData.postValue(
+                AppState.SuccessLike(
+                    repository.getAllLikesMovies()
+                )
+            )
+        }
+    }
+
+    override fun handleError(throwable: Throwable) {
+        liveData.postValue(
+            AppState.Error(throwable)
+        )
+    }
+
+
 }

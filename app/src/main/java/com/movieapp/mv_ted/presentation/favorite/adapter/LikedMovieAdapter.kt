@@ -29,8 +29,9 @@ class LikedMovieAdapter : RecyclerView.Adapter<LikedMovieAdapter.LikedMovieViewH
         notifyDataSetChanged()
     }
 
-    inner class LikedMovieViewHolder(private val binding: ItemLikesBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class LikedMovieViewHolder(
+        private val binding: ItemLikesBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) = with(binding) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 movieIdDateLikes.text = movie.date

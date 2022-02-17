@@ -36,4 +36,5 @@
     <string name="log_msg_geofence_add">geofence_added</string>
     <string name="overview_title_text">Overview</string>
     <string name="users_score_title">Users Score</string>
+    <string name="Action_Error_Text_SnackBar">reload</string>
 </resources>

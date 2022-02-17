@@ -119,10 +119,11 @@
             android:id="@+id/movie_genres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_marginTop="@dimen/date_text_marginTop_detail_frg"
             android:textColor="@color/white"
             android:textSize="@dimen/date_text_size_detail_frgmnt"
+            android:maxLength="26"
             app:layout_constraintStart_toEndOf="@id/movie_image"
             app:layout_constraintTop_toBottomOf="@id/movie_time"
             tools:text="Action Adventure Science" />
@@ -138,6 +139,7 @@
             app:layout_constraintTop_toBottomOf="@id/movie_genres">
 
             <ProgressBar
+                android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -194,39 +196,6 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_actor_item"
             />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/MovieComments"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/heght_of_recycle_view_comments"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/input_comments"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/item_detail" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_comments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_comment"
-            app:layout_constraintBottom_toBottomOf="@id/sentToDB"
-            app:layout_constraintEnd_toStartOf="@id/sentToDB"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/sentToDB"
-            app:layout_constraintVertical_bias="1" />
-
-        <Button
-            android:id="@+id/sentToDB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:hint="Send"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/input_comments"
-            app:layout_constraintTop_toBottomOf="@id/MovieComments"
-            app:layout_constraintVertical_bias="1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -9,21 +9,17 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.movieapp.mv_ted.R
-import com.movieapp.mv_ted.databinding.FragmentMapsBinding
-import com.movieapp.mv_ted.domain.models.response.MovieResponse
-import com.movieapp.mv_ted.utils.broadcastrecievers.GeofenceRequestReceiver
-import com.movieapp.mv_ted.domain.AppState
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.GoogleApiClient.*
+import com.google.android.gms.common.api.GoogleApiClient.Builder
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
@@ -32,7 +28,14 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
+import com.movieapp.mv_ted.R
+import com.movieapp.mv_ted.databinding.FragmentMapsBinding
+import com.movieapp.mv_ted.domain.AppState
+import com.movieapp.mv_ted.utils.broadcastrecievers.GeofenceRequestReceiver
 
 class MapsFragment : Fragment(), ConnectionCallbacks {
     private var binding: FragmentMapsBinding?= null

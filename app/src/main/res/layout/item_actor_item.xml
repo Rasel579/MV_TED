@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="120dp"
-    android:layout_height="180dp"
+    android:layout_width="70dp"
+    android:layout_height="130dp"
     android:focusableInTouchMode="true"
     android:layout_margin="8dp"
     android:elevation="20dp"
@@ -13,15 +13,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ImageView"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/movie_poster"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
             app:srcCompat="@drawable/avengers"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             />
 
         <TextView
@@ -30,8 +29,9 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:textStyle="bold"
+            android:maxLength="12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ImageView"
+            app:layout_constraintTop_toBottomOf="@+id/movie_poster"
             tools:text="Hugh Lory" />
         <TextView
             android:id="@+id/actor_role"
@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:layout_margin="4dp"
+            android:maxLength="12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/actor_name"
             tools:text="Iron man" />

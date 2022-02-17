@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.movieapp.mv_ted.domain.repository.Repository
 import com.movieapp.mv_ted.data.repository.RepositoryImpl
-import com.movieapp.mv_ted.domain.models.response.Film
+import com.movieapp.mv_ted.domain.models.response.movie.Film
 import com.movieapp.mv_ted.domain.AppState
 import retrofit2.Call
 import retrofit2.Callback
