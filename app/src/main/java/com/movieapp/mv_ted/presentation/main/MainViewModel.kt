@@ -1,13 +1,12 @@
 package com.movieapp.mv_ted.presentation.main
 
-import com.movieapp.mv_ted.data.repository.RepositoryImpl
 import com.movieapp.mv_ted.domain.AppState
 import com.movieapp.mv_ted.domain.repository.Repository
 import com.movieapp.mv_ted.presentation.core.BaseViewModel
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private var repository: Repository = RepositoryImpl()
+    private var repository: Repository
 ) : BaseViewModel() {
     override fun getData() {
         liveData.value = AppState.Loading

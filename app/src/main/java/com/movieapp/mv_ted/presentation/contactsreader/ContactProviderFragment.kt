@@ -11,21 +11,20 @@ import android.provider.ContactsContract
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.movieapp.mv_ted.R
 import com.movieapp.mv_ted.databinding.FragmentContactProviderBinding
 import com.movieapp.mv_ted.domain.AppState
 import com.movieapp.mv_ted.presentation.core.BaseFragment
-import com.movieapp.mv_ted.presentation.core.BaseViewModel
 import com.movieapp.mv_ted.presentation.main.MainViewModel
+import org.koin.android.ext.android.getKoin
+import org.koin.core.scope.Scope
 
 
 class ContactProviderFragment() :
     BaseFragment<FragmentContactProviderBinding>(R.layout.fragment_contact_provider) {
-    override val viewModel: BaseViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
+    override val scope: Scope = getKoin().createScope<ContactProviderFragment>()
+    override val viewModel: MainViewModel = scope.get()
     override val viewBinding: FragmentContactProviderBinding by viewBinding()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

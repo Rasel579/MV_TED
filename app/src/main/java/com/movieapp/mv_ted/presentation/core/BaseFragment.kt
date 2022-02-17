@@ -5,8 +5,10 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.movieapp.mv_ted.domain.AppState
+import org.koin.core.scope.Scope
 
 abstract class BaseFragment<T>(@LayoutRes id: Int): Fragment(id) {
+    abstract val scope: Scope
     abstract val viewBinding: T
     abstract val viewModel: BaseViewModel
     override fun onStart() {

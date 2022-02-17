@@ -1,13 +1,12 @@
 package com.movieapp.mv_ted.presentation.favorite
 
-import com.movieapp.mv_ted.data.repository.RepositoryImpl
 import com.movieapp.mv_ted.domain.AppState
 import com.movieapp.mv_ted.domain.repository.Repository
 import com.movieapp.mv_ted.presentation.core.BaseViewModel
 import kotlinx.coroutines.launch
 
 class LikedMovieViewModel(
-    private val repository: Repository = RepositoryImpl()
+    private val repository: Repository
 ) : BaseViewModel() {
 
     override fun getData() {

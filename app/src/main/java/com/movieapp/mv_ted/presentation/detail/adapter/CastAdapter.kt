@@ -27,9 +27,9 @@ class CastAdapter(
     inner class CastViewHolder(
         private val binding: ItemActorItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(cast: Cast) {
-             binding.actorName.text = cast.originalName
-             binding.actorRole.text = cast.character
+        fun bind(cast: Cast)= with(binding) {
+             actorName.text = cast.originalName
+             actorRole.text = cast.character
              Picasso
                  .get()
                  .load(imageUri + cast.profilePath)
