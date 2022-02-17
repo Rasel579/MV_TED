@@ -8,24 +8,24 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.movieapp.mv_ted.databinding.ItemBinding
+import com.movieapp.mv_ted.databinding.ItemCardMovieBinding
 import com.movieapp.mv_ted.models.data.model.imageUri
 import com.movieapp.mv_ted.presentation.main.listeners.OnItemViewClickListener
-import com.movieapp.mv_ted.domain.models.response.MovieResultDTO
+import com.movieapp.mv_ted.domain.models.response.MovieResponse
 import com.squareup.picasso.Picasso
 
 class MovieCollectionAdapter(
-    private var listMovies: MutableList<MovieResultDTO>?,
+    private var listMovies: MutableList<MovieResponse>?,
     private val onItemViewClickListener: OnItemViewClickListener
 ) :
     RecyclerView.Adapter<MovieCollectionAdapter.ViewHolder>() {
-    private lateinit var _binding : ItemBinding
+    private lateinit var _binding : ItemCardMovieBinding
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        _binding = ItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        _binding = ItemCardMovieBinding.inflate(LayoutInflater.from(parent.context),parent, false)
         return ViewHolder(_binding.root)
     }
 
@@ -43,7 +43,7 @@ class MovieCollectionAdapter(
         private var dateUpcomingMovie: TextView = let { _binding.dateUpcoming }
 
         @RequiresApi(Build.VERSION_CODES.M)
-        fun setData(movie: MovieResultDTO) {
+        fun setData(movie: MovieResponse) {
             titleTextMovie.text = movie.originalTitle
             dateUpcomingMovie.text = movie.releaseDate
             Picasso.get()

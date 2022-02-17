@@ -1,68 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/main_frg_margin_top"
-    tools:context=".presentation.main.MainFragment"
-    >
+    android:background="#FDF7F7"
+    tools:context=".presentation.main.MainFragment">
 
-    <TextView
-        android:id="@+id/header_now_playing_text"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/main_frg_margin_top"
-        android:textSize="@dimen/text_size_nav_header"
-        android:text="@string/now_playing_text_main_fragment"
-        android:background="@color/design_default_color_background"
-        />
+        app:cardBackgroundColor="#A8A4A4"
+        app:strokeColor="#1C1A1A">
+
+        <TextView
+            android:id="@+id/header_now_playing_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/main_frg_margin_top"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/now_playing_text_main_fragment"
+            android:textColor="#171616"
+            android:textSize="@dimen/text_size_nav_header"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="bottom"
+            android:background="#595656" />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_View_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/recycler_view_now_playing_margin_top"
-        android:layout_marginBottom="@dimen/recycler_view_now_playing_margin_bottom"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item"
-        android:layout_gravity="fill_vertical"
-        android:outlineProvider="paddedBounds"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/coming_soon_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/title_coming_soon_margin_top"
-        android:textSize="@dimen/text_size_nav_header"
-        android:text="@string/coming_soon"
-        android:background="@color/design_default_color_background"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_View_layout_coming_soon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/recycler_view_comming_soon_margin_top"
-        android:layout_marginBottom="@dimen/recycler_view_coming_soon_margin_bottom"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item"
         android:layout_gravity="fill_vertical"
-        android:outlineProvider="paddedBounds"/>
+        android:layout_marginTop="@dimen/recycler_view_now_playing_margin_top"
+        android:layout_marginBottom="@dimen/recycler_view_now_playing_margin_bottom"
+        android:outlineProvider="paddedBounds"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/item_card_movie" />
+
+
     <FrameLayout
         android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/cardview_shadow_start_color"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:visibility="visible"
+        tools:visibility="invisible">
+
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
     </FrameLayout>
 
 </FrameLayout>

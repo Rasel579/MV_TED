@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Parcelable
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.movieapp.mv_ted.models.data.model.*
-import com.movieapp.mv_ted.domain.models.response.MovieResultDTO
+import com.movieapp.mv_ted.domain.models.response.MovieResponse
 import com.movieapp.mv_ted.data.datasource.cloudsource.rest_mdbApi.MoviesLoader
 import java.util.ArrayList
 
@@ -29,7 +29,7 @@ class DetailsServices(name: String = "Details_Services") : IntentService(name) {
            broadcastIntent.putExtra(DETAILS_LOAD_RESULT_EXTRA, result)
     }
 
-    private fun onResponse(loadMovies: MutableList<MovieResultDTO>?) {
+    private fun onResponse(loadMovies: MutableList<MovieResponse>?) {
         if (loadMovies == null){
             onEmptyResponse()
         } else {
@@ -42,7 +42,7 @@ class DetailsServices(name: String = "Details_Services") : IntentService(name) {
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)
     }
 
-    private fun onSuccessResponse(loadMovies: MutableList<MovieResultDTO>) {
+    private fun onSuccessResponse(loadMovies: MutableList<MovieResponse>) {
         putLoadResult(DETAILS_RESPONSE_SUCCESS_EXTRA)
         broadcastIntent.putParcelableArrayListExtra(DETAILS_LOADED_MOVIES, loadMovies as ArrayList<out Parcelable>)
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)

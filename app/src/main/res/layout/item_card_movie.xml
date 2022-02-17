@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="180dp"
+    android:layout_height="350dp"
+    android:focusableInTouchMode="true"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="@dimen/card_view_corner_radius"
+    android:filterTouchesWhenObscured="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            app:srcCompat="@drawable/avengers"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <RelativeLayout
+            android:id="@+id/progress_layout"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:alpha="0.8"
+            app:layout_constraintBottom_toTopOf="@+id/dateUpcoming"
+            app:layout_constraintStart_toStartOf="@+id/ImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.86"
+            android:background="@drawable/round">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:progress="90"
+                android:progressDrawable="@drawable/ring"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:indeterminateTint="#40B539" />
+
+            <TextView
+                android:id="@+id/ratio_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:text="50"
+                tools:text="20" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/item_recycler_text_size"
+            android:textColor="@color/black"
+            android:maxLength="30"
+            app:layout_constraintStart_toStartOf="@+id/ImageView"
+            app:layout_constraintTop_toBottomOf="@+id/progress_layout"
+            tools:text="Title of Superable Movie"/>
+        <TextView
+            android:id="@+id/dateUpcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/title_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="16sp"
+            tools:text="September 20, 2022"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

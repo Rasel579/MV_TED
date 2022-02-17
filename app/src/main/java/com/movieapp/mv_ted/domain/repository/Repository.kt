@@ -4,12 +4,12 @@ import com.movieapp.mv_ted.domain.models.Comment
 import com.movieapp.mv_ted.domain.models.Movie
 import com.movieapp.mv_ted.domain.models.response.Film
 import com.movieapp.mv_ted.domain.models.response.MovieDTO
-import com.movieapp.mv_ted.domain.models.response.MovieResultDTO
+import com.movieapp.mv_ted.domain.models.response.MovieResponse
 import retrofit2.Callback
 import java.net.URL
 
 interface Repository {
-    fun getDataFromServer(uri: URL) : MutableList<MovieResultDTO>?
+    fun getDataFromServer(uri: URL) : MutableList<MovieResponse>?
     fun getDataFromServerRetrofit(callback : Callback<MovieDTO>)
     fun getDataFromServerRetrofitUpcoming(callback : Callback<MovieDTO>)
     fun getDataFromServerAboutFilm(callback: Callback<Film>, movieId: String)
@@ -19,4 +19,5 @@ interface Repository {
     fun saveEntity(comment: Comment)
     fun getAllLikesMovies() : List<Movie>
     fun saveLikes(movie: Movie)
+    suspend fun getMovieById(movieId: String) : MovieResponse
 }

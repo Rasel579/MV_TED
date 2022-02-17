@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import com.movieapp.mv_ted.BuildConfig
 import com.google.gson.Gson
 import com.movieapp.mv_ted.domain.models.response.MovieDTO
-import com.movieapp.mv_ted.domain.models.response.MovieResultDTO
+import com.movieapp.mv_ted.domain.models.response.MovieResponse
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.Exception
@@ -16,7 +16,7 @@ import javax.net.ssl.HttpsURLConnection
 
  object MoviesLoader {
      private lateinit var urlConnection : HttpsURLConnection
-     fun loadMovies(uri: URL): MutableList<MovieResultDTO>? {
+     fun loadMovies(uri: URL): MutableList<MovieResponse>? {
          try {
                urlConnection = uri.openConnection() as HttpsURLConnection
                urlConnection.apply {

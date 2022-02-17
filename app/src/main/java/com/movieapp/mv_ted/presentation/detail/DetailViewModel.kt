@@ -27,6 +27,15 @@ class DetailViewModel(
           }
       }
 
+    fun  getMovieById(movieId: String){
+        detailLiveData.value = AppState.Loading
+        launch ( Dispatchers.IO ){
+            detailLiveData.postValue(
+                AppState.SuccessMovieId(repository.getMovieById(movieId))
+            )
+        }
+    }
+
     fun saveEntity(text: String, id: String) {
            Thread {
                repository.saveEntity(Comment(0, id, text))

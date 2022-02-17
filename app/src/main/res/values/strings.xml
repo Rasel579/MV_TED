@@ -8,7 +8,7 @@
     <string name="nav_header_more_information_text">More information...</string>
     <string name="closer_drawer_conent_text">Close Drawer</string>
     <string name="open_string_text_drawer">open</string>
-    <string name="now_playing_text_main_fragment">Now Playing</string>
+    <string name="now_playing_text_main_fragment">Top Movies</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="textOnOptionItemSelectedMainFrame">Main Frame</string>
     <string name="NavigationFDawerText">Drawer</string>
@@ -34,4 +34,6 @@
     <string name="Title_alert_geofence">Geofence</string>
     <string name="mesg_alert_geofence">The Cinema near You</string>
     <string name="log_msg_geofence_add">geofence_added</string>
+    <string name="overview_title_text">Overview</string>
+    <string name="users_score_title">Users Score</string>
 </resources>

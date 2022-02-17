@@ -18,7 +18,7 @@
         <item name="windowNoTitle">true</item>
     </style>
     <style name="Theme.MV_TED.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
-        <item name="colorPrimary">@color/purple_custom</item>
+        <item name="colorPrimary">@color/dark_grey</item>
     </style>
     <style name="Theme.MV_TED.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>
