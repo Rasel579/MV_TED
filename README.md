@@ -2,7 +2,7 @@
  - Searching Top Movies
  - Can View Detailed information about movie
  - Can add to favorites
- - Can view about cast charecters
+ - Can view about cast characters
  
  # Stack
  - Clean Architecture
